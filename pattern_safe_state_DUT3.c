@@ -11,8 +11,8 @@ void pattern_safe_state_dut3()
 	Buff_dut3_XGPIO_0[3] = 0x9E;							//REG0008
 	Buff_dut3_XGPIO_0[4] = 0x00|(dut3.g_uartPatternNum); 	//REG0009 output value[23:16]
 	Buff_dut3_XGPIO_0[5] = 0xE0;							//REG000a
-	Buff_dut3_XGPIO_0[6] = 0x00;							//REG000b output value[31:24]
-	Buff_dut3_XGPIO_0[7] = 0xFF;							//REG000c
+	Buff_dut3_XGPIO_0[6] = 0x02;							//REG000b output value[31:24]
+	Buff_dut3_XGPIO_0[7] = 0xFC;							//REG000c
 	XGpio_dut3_Relay_WriteByte(XPAR_AXI_GPIO_dut3_1_BASEADDR,Buff_dut3_XGPIO_0);
 	msdelay(10);
 	//xil_printf("\r\ndut3 relay control setup completed!\r\n");

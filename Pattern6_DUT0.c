@@ -17,8 +17,8 @@ u8 _by_Pattern6_dut0()
 			Buff_dut0_XGPIO_0[3] = 0x9E;							//REG0008
 			Buff_dut0_XGPIO_0[4] = 0xC0|(dut0.g_uartPatternNum); 	//REG0009 output value[23:16]
 			Buff_dut0_XGPIO_0[5] = 0x00;							//REG000a
-			Buff_dut0_XGPIO_0[6] = 0x00;							//REG000b output value[31:24]
-			Buff_dut0_XGPIO_0[7] = 0xFF;							//REG000c
+			Buff_dut0_XGPIO_0[6] = 0x02;							//REG000b output value[31:24]
+			Buff_dut0_XGPIO_0[7] = 0xFC;							//REG000c
 
 			XGpio_dut0_Relay_WriteByte(XPAR_AXI_GPIO_dut0_1_BASEADDR,Buff_dut0_XGPIO_0);
 			dut0.g_dut_pattern_status_buf[7] = 0x01;
