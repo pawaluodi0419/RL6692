@@ -100,6 +100,8 @@ u8 _by_Pattern7_dut1()
 				//dut1.g_dut_pattern_status_buf[2]++;
 				dut1.g_uartPatternEnable = 0x00;
 				dut1.g_uartPatternNum++;
+				dut1.g_uartPatternNum++;
+				dut1.g_uartPatternNum++;
 				result_output_for_v50(XPAR_AXI_GPIO_dut1_1_BASEADDR,dut1.g_uartPatternNum);
 				xil_printf("dut1.pattern7_pass!\r\n\r\n");
 			}

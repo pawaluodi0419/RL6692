@@ -35,7 +35,7 @@ u8 g_ledD7Tg=0;
 
 int main()
 {
-	xil_printf("FT2 start!\r\nFPGA Version:RTS5452U_FT_Merge_Release_2021092801\r\n");
+	xil_printf("FT2 start!\r\nFPGA Version:RTS5456H_FT_Merge_Release_2021121701\r\n");
 
 	XGpio_WriteBit(XPAR_AXI_GPIO_1_BASEADDR,0,1, 0);	//reset usb host
 	msdelay(100);
@@ -505,18 +505,18 @@ int main()
 				}
 				case 0x0C:
 				{
-					//CC detect
-					_by_PatternC_dut1();
+					_by_Pattern_U2_host_test1_dut1();
 					break;
 				}
 				case 0x0D:
 				{
-					//_by_PatternD_dut1();
+					//CC detect
+					_by_PatternD_dut1();
 					break;
 				}
 				case 0x0E:
 				{
-					_by_Pattern_U2_host_test1_dut1();
+					//_by_Pattern_U2_host_test1_dut1();
 					break;
 				}
 				case 0x0F:

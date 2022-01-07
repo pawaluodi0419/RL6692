@@ -101,15 +101,15 @@ u8 _by_Pattern_PD_msg_dut1()
 		}
 		break;
 	}
-/*
+
 	//configure DP reverse
-	case 0x0004:
+	case 0x0003:
 	{
 		dut1.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
 		dut1.g_pattern_smbus_control_buf[2] = 0x15;
 		dut1.g_pattern_smbus_control_buf[3] = 0xc4;
 		dut1.g_pattern_smbus_control_buf[4] = 0x01;
-		dut1.g_pattern_smbus_control_buf[5] = 0x34;
+		dut1.g_pattern_smbus_control_buf[5] = 0x31;
 
 		smbus1_irq_handle(dut1.g_pattern_smbus_control_buf);
 		if(dut1.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
@@ -130,7 +130,7 @@ u8 _by_Pattern_PD_msg_dut1()
 		}
 		break;
 	}
-
+/*
 	//configure U2 mux B
 	case 0x0005:
 	{
@@ -165,7 +165,7 @@ u8 _by_Pattern_PD_msg_dut1()
 	}
 */
 	//polling ack bit
-	case 0x0003:
+	case 0x0004:
 	{
 		dut1.g_pattern_smbus_control_buf[1] = smbus_cmd_type_readmem;
 		dut1.g_pattern_smbus_control_buf[2] = 0x33;
