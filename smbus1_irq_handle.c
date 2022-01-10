@@ -194,21 +194,21 @@ u8 smbus1_irq_handle(u8 smbus_control_buf[])
 
 		case smbus_road_doing:
 		{
-			if(dut1.g_smbus_timer != 0)
-			{
-				if((dut1.g_axiTmr2Cnt&0x7f)==0x64)
-				{
-					XGpio_0_WriteBit(0,LED_D7_OFFSET,g_ledD7Tg);
-					g_ledD7Tg=~g_ledD7Tg;
-				}
-			}
-			else
-			{
-				if((dut1.g_axiTmr2Cnt&0x7f)==0x64)
-				{
-					XGpio_0_WriteBit(0,LED_D5_OFFSET,g_ledD5Tg);
-					g_ledD5Tg=~g_ledD5Tg;
-				}
+//			if(dut1.g_smbus_timer != 0)
+//			{
+//				if((dut1.g_axiTmr2Cnt&0x7f)==0x64)
+//				{
+//					XGpio_0_WriteBit(0,LED_D7_OFFSET,g_ledD7Tg);
+//					g_ledD7Tg=~g_ledD7Tg;
+//				}
+//			}
+//			else
+//			{
+//				if((dut1.g_axiTmr2Cnt&0x7f)==0x64)
+//				{
+//					XGpio_0_WriteBit(0,LED_D5_OFFSET,g_ledD5Tg);
+//					g_ledD5Tg=~g_ledD5Tg;
+//				}
 
 				switch(dut1.g_smbus_style)
 				{
@@ -468,7 +468,7 @@ u8 smbus1_irq_handle(u8 smbus_control_buf[])
 					break;
 				}
 				}
-			}
+//			}
 			break;
 		}
 		}
@@ -843,21 +843,21 @@ u8 smbus1_irq_handle(u8 smbus_control_buf[])
 
 		case smbus_road_doing:
 		{
-			if(dut1.g_smbus_timer != 0)
-			{
-				if((dut1.g_axiTmr2Cnt&0x7f)==0x64)
-				{
-					XGpio_0_WriteBit(0,LED_D7_OFFSET,g_ledD7Tg);
-					g_ledD7Tg=~g_ledD7Tg;
-				}
-			}
-			else
-			{
-				if((dut1.g_axiTmr2Cnt&0x7f)==0x64)
-				{
-					XGpio_0_WriteBit(0,LED_D5_OFFSET,g_ledD5Tg);
-					g_ledD5Tg=~g_ledD5Tg;
-				}
+//			if(dut1.g_smbus_timer != 0)
+//			{
+//				if((dut1.g_axiTmr2Cnt&0x7f)==0x64)
+//				{
+//					XGpio_0_WriteBit(0,LED_D7_OFFSET,g_ledD7Tg);
+//					g_ledD7Tg=~g_ledD7Tg;
+//				}
+//			}
+//			else
+//			{
+//				if((dut1.g_axiTmr2Cnt&0x7f)==0x64)
+//				{
+//					XGpio_0_WriteBit(0,LED_D5_OFFSET,g_ledD5Tg);
+//					g_ledD5Tg=~g_ledD5Tg;
+//				}
 
 				switch(dut1.g_smbus_style)
 				{
@@ -1046,7 +1046,7 @@ u8 smbus1_irq_handle(u8 smbus_control_buf[])
 					break;
 				}
 				}
-			}
+//			}
 			break;
 		}
 		}
@@ -1093,21 +1093,21 @@ u8 smbus1_irq_handle(u8 smbus_control_buf[])
 
 		case smbus_road_doing:
 		{
-			if(dut1.g_smbus_timer != 0)
-			{
-				if((dut1.g_axiTmr2Cnt&0x7f)==0x64)
-				{
-					XGpio_0_WriteBit(0,LED_D7_OFFSET,g_ledD7Tg);
-					g_ledD7Tg=~g_ledD7Tg;
-				}
-			}
-			else
-			{
-				if((dut1.g_axiTmr2Cnt&0x7f)==0x64)
-				{
-					XGpio_0_WriteBit(0,LED_D5_OFFSET,g_ledD5Tg);
-					g_ledD5Tg=~g_ledD5Tg;
-				}
+//			if(dut1.g_smbus_timer != 0)
+//			{
+//				if((dut1.g_axiTmr2Cnt&0x7f)==0x64)
+//				{
+//					XGpio_0_WriteBit(0,LED_D7_OFFSET,g_ledD7Tg);
+//					g_ledD7Tg=~g_ledD7Tg;
+//				}
+//			}
+//			else
+//			{
+//				if((dut1.g_axiTmr2Cnt&0x7f)==0x64)
+//				{
+//					XGpio_0_WriteBit(0,LED_D5_OFFSET,g_ledD5Tg);
+//					g_ledD5Tg=~g_ledD5Tg;
+//				}
 
 				switch(dut1.g_smbus_style)
 				{
@@ -1296,7 +1296,7 @@ u8 smbus1_irq_handle(u8 smbus_control_buf[])
 					break;
 				}
 				}
-			}
+//			}
 			break;
 		}
 		}

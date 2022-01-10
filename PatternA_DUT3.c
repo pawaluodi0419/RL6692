@@ -44,14 +44,14 @@ u8 _by_PatternA_dut3()
 		break;
 	}
 
-	//DP reverse
+	//DP reverse: RL6692 need to write 0x35, not 0x34
 	case 0x0001:
 	{
 		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
 		dut3.g_pattern_smbus_control_buf[2] = 0x15;
 		dut3.g_pattern_smbus_control_buf[3] = 0xc4;
 		dut3.g_pattern_smbus_control_buf[4] = 0x01;
-		dut3.g_pattern_smbus_control_buf[5] = 0x34;
+		dut3.g_pattern_smbus_control_buf[5] = 0x35;
 
 		smbus3_irq_handle(dut3.g_pattern_smbus_control_buf);
 		if(dut3.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)

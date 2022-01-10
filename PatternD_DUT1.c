@@ -31,7 +31,7 @@ u8 _by_PatternD_dut1()
 
 			dut1.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
 			dut1.g_pattern_step++;
-			//msdelay(50);
+			msdelay(1000);
 		}
 		break;
 	}

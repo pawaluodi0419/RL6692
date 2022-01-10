@@ -101,69 +101,69 @@ u8 _by_Pattern_PD_msg_dut3()
 		}
 		break;
 	}
-/*
-	//configure DP reverse
-	case 0x0004:
-	{
-		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
-		dut3.g_pattern_smbus_control_buf[2] = 0x15;
-		dut3.g_pattern_smbus_control_buf[3] = 0xc4;
-		dut3.g_pattern_smbus_control_buf[4] = 0x01;
-		dut3.g_pattern_smbus_control_buf[5] = 0x34;
 
-		smbus3_irq_handle(dut3.g_pattern_smbus_control_buf);
-		if(dut3.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
-		{
-			break;
-		}
-		else
-		{
-//			xil_printf("dut3.read_0xC415 =0x%x\r\n", dut3.g_pattern_smbus_control_buf[10]);
+//	//configure DP reverse
+//	case 0x0003:
+//	{
+//		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
+//		dut3.g_pattern_smbus_control_buf[2] = 0x15;
+//		dut3.g_pattern_smbus_control_buf[3] = 0xc4;
+//		dut3.g_pattern_smbus_control_buf[4] = 0x01;
+//		dut3.g_pattern_smbus_control_buf[5] = 0x34;
+//
+//		smbus3_irq_handle(dut3.g_pattern_smbus_control_buf);
+//		if(dut3.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
+//		{
+//			break;
+//		}
+//		else
+//		{
+////			xil_printf("dut3.read_0xC415 =0x%x\r\n", dut3.g_pattern_smbus_control_buf[10]);
+//
+//			for(i=1; i<60; i++)
+//			{
+//				dut3.g_pattern_smbus_control_buf[i] = CLEAR_;
+//			}
+//
+//			dut3.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
+//			dut3.g_pattern_step++;
+//		}
+//		break;
+//	}
+//
+//	//configure U2 mux B
+//	case 0x0004:
+//	{
+//		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writephy;
+//		dut3.g_pattern_smbus_control_buf[2] = 0x01;
+//		dut3.g_pattern_smbus_control_buf[3] = 0x00;
+//		dut3.g_pattern_smbus_control_buf[4] = 0x01;
+//		dut3.g_pattern_smbus_control_buf[5] = 0x00;
+//		dut3.g_pattern_smbus_control_buf[6] = 0x03;
+//
+//		smbus3_irq_handle(dut3.g_pattern_smbus_control_buf);
+//		if(dut3.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
+//		{
+//			break;
+//		}
+//		else
+//		{
+////			xil_printf("dut3.read_0x0001 =0x%x\r\n", dut3.g_pattern_smbus_control_buf[10]);
+////			xil_printf("dut3.read_0x0001 =0x%x\r\n\r\n", dut3.g_pattern_smbus_control_buf[11]);
+//
+//			for(i=1; i<60; i++)
+//			{
+//				dut3.g_pattern_smbus_control_buf[i] = CLEAR_;
+//			}
+//
+//			dut3.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
+//
+//			dut3.g_start_test_flag2 = 0x02;
+//			dut3.g_pattern_step++;
+//		}
+//		break;
+//	}
 
-			for(i=1; i<60; i++)
-			{
-				dut3.g_pattern_smbus_control_buf[i] = CLEAR_;
-			}
-
-			dut3.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
-			dut3.g_pattern_step++;
-		}
-		break;
-	}
-
-	//configure U2 mux B
-	case 0x0005:
-	{
-		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writephy;
-		dut3.g_pattern_smbus_control_buf[2] = 0x01;
-		dut3.g_pattern_smbus_control_buf[3] = 0x00;
-		dut3.g_pattern_smbus_control_buf[4] = 0x01;
-		dut3.g_pattern_smbus_control_buf[5] = 0x00;
-		dut3.g_pattern_smbus_control_buf[6] = 0x03;
-
-		smbus3_irq_handle(dut3.g_pattern_smbus_control_buf);
-		if(dut3.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
-		{
-			break;
-		}
-		else
-		{
-//			xil_printf("dut3.read_0x0001 =0x%x\r\n", dut3.g_pattern_smbus_control_buf[10]);
-//			xil_printf("dut3.read_0x0001 =0x%x\r\n\r\n", dut3.g_pattern_smbus_control_buf[11]);
-
-			for(i=1; i<60; i++)
-			{
-				dut3.g_pattern_smbus_control_buf[i] = CLEAR_;
-			}
-
-			dut3.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
-
-			dut3.g_start_test_flag2 = 0x02;
-			dut3.g_pattern_step++;
-		}
-		break;
-	}
-*/
 	//polling ack bit
 	case 0x0003:
 	{

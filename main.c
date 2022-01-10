@@ -374,18 +374,18 @@ int main()
 				}
 				case 0x0C:
 				{
-					//CC detect
-					_by_PatternC_dut0();
+					_by_Pattern_U2_host_test1_dut0();
 					break;
 				}
 				case 0x0D:
 				{
-					//_by_PatternD_dut0();
+					//CC detect
+					_by_PatternD_dut0();
 					break;
 				}
 				case 0x0E:
 				{
-					_by_Pattern_U2_host_test1_dut0();
+					//_by_Pattern_U2_host_test1_dut0();
 					break;
 				}
 				case 0x0F:
@@ -636,18 +636,18 @@ int main()
 				}
 				case 0x0C:
 				{
-					//CC detect
-					_by_PatternC_dut2();
+					_by_Pattern_U2_host_test1_dut2();
 					break;
 				}
 				case 0x0D:
 				{
-					//_by_PatternD_dut2();
+					//CC detect
+					_by_PatternD_dut2();
 					break;
 				}
 				case 0x0E:
 				{
-					_by_Pattern_U2_host_test1_dut2();
+					//_by_Pattern_U2_host_test1_dut2();
 					break;
 				}
 				case 0x0F:
@@ -767,18 +767,18 @@ int main()
 				}
 				case 0x0C:
 				{
-					//CC detect
-					_by_PatternC_dut3();
+					_by_Pattern_U2_host_test1_dut3();
 					break;
 				}
 				case 0x0D:
 				{
-					//_by_PatternD_dut3();
+					//CC detect
+					_by_PatternD_dut3();
 					break;
 				}
 				case 0x0E:
 				{
-					_by_Pattern_U2_host_test1_dut3();
+					//_by_Pattern_U2_host_test1_dut3();
 					break;
 				}
 				case 0x0F:
