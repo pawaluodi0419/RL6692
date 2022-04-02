@@ -17,28 +17,6 @@ void pattern_safe_state_dut3()
 	msdelay(10);
 	//xil_printf("\r\ndut3 relay control setup completed!\r\n");
 
-	//DAC output 0v
-	dut3.g_dac_data_buf[0] = 0x01;	//0x01: CC1 0x03: CC2
-	dut3.g_dac_data_buf[1] = 0x00;	//Data L
-	dut3.g_dac_data_buf[2] = 0x00;	//Data H
-	dut3.g_dac_data_buf[3] = 0x00;	//Data L
-	dut3.g_dac_data_buf[4] = 0x00;	//Data H
-	dut3.g_dac_data_buf[5] = 0x00;	//Data L
-	dut3.g_dac_data_buf[6] = 0x00;	//Data H
-	_by_mcp4822_output_control_dut3(dut3.g_dac_data_buf);
-	msdelay(10);
-
-	dut3.g_dac_data_buf[0] = 0x03;	//0x01: CC1 0x03: CC2
-	dut3.g_dac_data_buf[1] = 0x00;	//Data L
-	dut3.g_dac_data_buf[2] = 0x00;	//Data H
-	dut3.g_dac_data_buf[3] = 0x00;	//Data L
-	dut3.g_dac_data_buf[4] = 0x00;	//Data H
-	dut3.g_dac_data_buf[5] = 0x00;	//Data L
-	dut3.g_dac_data_buf[6] = 0x00;	//Data H
-	_by_mcp4822_output_control_dut3(dut3.g_dac_data_buf);
-	msdelay(10);
-	//xil_printf("dut3 DAC output 0v setup completed!\r\n");
-
 	//DUT IC power off
 	XGpio_2_WriteBit(0,dut3_FT2_PWR_CTRL_OFFSET,0x01);
 	msdelay(50);
@@ -61,12 +39,12 @@ void pattern_safe_state_dut3()
 	dut3.g_smbus_status_buf[1] = 0xff;
 	dut3.g_smbus_style = 0x00;
 
-	for(i=0;i<12;i++)
-	{
-		dut3.g_ccdet_calibration_data_buf[i] = 0x88;
-	}
-	dut3.g_ccdet_step = 0;
-	dut3.g_ccdet_retest_signbit = 0;
+//	for(i=0;i<12;i++)
+//	{
+//		dut3.g_ccdet_calibration_data_buf[i] = 0x88;
+//	}
+//	dut3.g_ccdet_step = 0;
+//	dut3.g_ccdet_retest_signbit = 0;
 
    	dut3.g_pattern_timer = 0xfff;
    	dut3.g_relay_control_timer = 0xff;

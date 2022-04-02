@@ -219,6 +219,11 @@ int main()
 	dut2.g_ack_bit_reread_timer = 20;
 	dut3.g_ack_bit_reread_timer = 20;
 
+	dut0.g_gpio_reread_timer = 3;
+	dut1.g_gpio_reread_timer = 3;
+	dut2.g_gpio_reread_timer = 3;
+	dut3.g_gpio_reread_timer = 3;
+
 	dut0.g_result_polling_tmrcount = 20;
 	dut1.g_result_polling_tmrcount = 20;
 	dut2.g_result_polling_tmrcount = 20;

@@ -121,6 +121,7 @@ u32 g_start_smbus_timer_count1;
 u32 g_start_smbus_timer_count2;
 u32 g_pattern_timer;
 u8  g_ack_bit_reread_timer;
+u8  g_gpio_reread_timer;
 
 u8 	g_uartRecBuf[4];
 u8 	g_i2cRecBuf[5];
