@@ -18,7 +18,7 @@ u8 _by_Pattern0_Setup_dut1()
 			Buff_dut1_XGPIO_0[0] = 0x00;                          	//REG0005 ouput value[7:0]
 			Buff_dut1_XGPIO_0[1] = 0xFF;							//REG0006
 			Buff_dut1_XGPIO_0[2] = 0x40;							//REG0007 output value[15:8]
-			Buff_dut1_XGPIO_0[3] = 0xDE;							//REG0008
+			Buff_dut1_XGPIO_0[3] = 0x9E;							//REG0008
 			Buff_dut1_XGPIO_0[4] = 0x40|(dut1.g_uartPatternNum); 	//REG0009 output value[23:16]
 			Buff_dut1_XGPIO_0[5] = 0x00;							//REG000a
 			Buff_dut1_XGPIO_0[6] = 0x02;							//REG000b output value[31:24]
@@ -506,6 +506,7 @@ u8 _by_Pattern0_Setup_dut1()
 		{
 			if(((dut1.g_pattern_smbus_control_buf[10] >> 3) & 0x03) == 0x03)
 			{
+				xil_printf("dut1 GPIO config success!\r\n\r\n");
 				dut1.g_gpio_reread_timer = 3;
 				dut1.g_pattern_step++;
 			}
@@ -540,7 +541,7 @@ u8 _by_Pattern0_Setup_dut1()
 			Buff_dut1_XGPIO_0[0] = 0x00;                          	//REG0005 ouput value[7:0]
 			Buff_dut1_XGPIO_0[1] = 0xFF;							//REG0006
 			Buff_dut1_XGPIO_0[2] = 0x20;							//REG0007 output value[15:8]
-			Buff_dut1_XGPIO_0[3] = 0xDE;							//REG0008
+			Buff_dut1_XGPIO_0[3] = 0x9E;							//REG0008
 			Buff_dut1_XGPIO_0[4] = 0x40|(dut1.g_uartPatternNum); 	//REG0009 output value[23:16]
 			Buff_dut1_XGPIO_0[5] = 0x00;							//REG000a
 			Buff_dut1_XGPIO_0[6] = 0x02;							//REG000b output value[31:24]

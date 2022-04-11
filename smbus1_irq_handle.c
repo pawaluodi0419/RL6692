@@ -330,7 +330,7 @@ u8 smbus1_irq_handle(u8 smbus_control_buf[])
 						dut1.g_smbus_style++;
 						dut1.g_smbus_timer = smbus_master_write_before_pinstatus_timer;
 
-						dut1.g_smbus_retry_timer = 0x32;
+						dut1.g_smbus_retry_timer = 0x64;
 						dut1.g_pattern_smbus_control_buf[0] = smbus_road_doing;
 						smbus1_process_state = smbus_road_doing;
 
@@ -343,7 +343,7 @@ u8 smbus1_irq_handle(u8 smbus_control_buf[])
 
 				case 0x02:
 				{
-					usdelay(10);
+					usdelay(500);
 					//xil_printf("\r\n doing_write_case02\r\n");
 					smbus_get_pinstatus_result = smbus_master_get_pinstate_dut1(SMBUS_DEV1_ADDR, smbus_get_pinstatus_result);
 					//xil_printf("smbus_get_pinstatus_result = %d\r\n", smbus_get_pinstatus_result);
@@ -597,14 +597,14 @@ u8 smbus1_irq_handle(u8 smbus_control_buf[])
 
 			case 0x02:
 			{
-		        usdelay(100);
+		        usdelay(500);
 				//dut1.g_smbus_status_buf[2] = smbus_master_get_pinstate(SMBUS_DEV1_ADDR, smbus_get_pinstatus_result);
 				//xil_printf("dut1_smbus_pinstatus = %x\r\n", dut1.g_smbus_status_buf[2]);
 				//xil_printf("\r\n doing_read_case02\r\n");
 
 				smbus_get_pinstatus_result = smbus_master_get_pinstate_dut1(SMBUS_DEV1_ADDR, smbus_get_pinstatus_result);
 				//xil_printf("smbus_get_pinstatus_result = %x\r\n", smbus_get_pinstatus_result);
-				usdelay(20);
+
 				//dut1.g_smbus_status_buf[0]++;
 				dut1.g_smbus_status_buf[1] = smbus_master_write_pinstatus_timer;
 				//dut1.g_smbus_style++;

@@ -16,7 +16,7 @@ u8 _by_Pattern4_dut3()
 			Buff_dut3_XGPIO_0[0] = 0x3C;                            //REG0005 ouput value[7:0]
 			Buff_dut3_XGPIO_0[1] = 0xC2;							//REG0006
 			Buff_dut3_XGPIO_0[2] = 0x00;							//REG0007 output value[15:8]
-			Buff_dut3_XGPIO_0[3] = 0xDE;							//REG0008
+			Buff_dut3_XGPIO_0[3] = 0x9E;							//REG0008
 			Buff_dut3_XGPIO_0[4] = 0xC0|(dut3.g_uartPatternNum); 	//REG0009 output value[23:16]
 			Buff_dut3_XGPIO_0[5] = 0x00;							//REG000a
 			Buff_dut3_XGPIO_0[6] = 0x02;							//REG000b output value[31:24]
