@@ -384,13 +384,14 @@ int main()
 				}
 				case 0x0D:
 				{
-					//CC detect
+					//Normal CC detect
 					_by_PatternD_dut0();
 					break;
 				}
 				case 0x0E:
 				{
-					//_by_Pattern_U2_host_test1_dut0();
+					//Delink CC detect
+					_by_PatternE_dut0();
 					break;
 				}
 				case 0x0F:
@@ -515,13 +516,14 @@ int main()
 				}
 				case 0x0D:
 				{
-					//CC detect
+					//Normal CC detect
 					_by_PatternD_dut1();
 					break;
 				}
 				case 0x0E:
 				{
-					//_by_Pattern_U2_host_test1_dut1();
+					//Delink CC detect
+					_by_PatternE_dut1();
 					break;
 				}
 				case 0x0F:
@@ -646,13 +648,14 @@ int main()
 				}
 				case 0x0D:
 				{
-					//CC detect
+					//Normal CC detect
 					_by_PatternD_dut2();
 					break;
 				}
 				case 0x0E:
 				{
-					//_by_Pattern_U2_host_test1_dut2();
+					//Delink CC detect
+					_by_PatternE_dut2();
 					break;
 				}
 				case 0x0F:
@@ -777,13 +780,14 @@ int main()
 				}
 				case 0x0D:
 				{
-					//CC detect
+					//Normal CC detect
 					_by_PatternD_dut3();
 					break;
 				}
 				case 0x0E:
 				{
-					//_by_Pattern_U2_host_test1_dut3();
+					//Delink CC detect
+					_by_PatternE_dut3();
 					break;
 				}
 				case 0x0F:

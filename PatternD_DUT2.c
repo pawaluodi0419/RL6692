@@ -31,7 +31,6 @@ u8 _by_PatternD_dut2()
 
 			dut2.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
 			dut2.g_pattern_step++;
-			msdelay(1000);
 		}
 		break;
 	}
@@ -64,7 +63,6 @@ u8 _by_PatternD_dut2()
 				dut2.g_pattern_step = 0x00;
 				//dut2.g_dut_pattern_status_buf[2]++;
 				dut2.g_uartPatternEnable = 0x00;
-				dut2.g_uartPatternNum++;
 				dut2.g_uartPatternNum++;
 				result_output_for_v50(XPAR_AXI_GPIO_dut2_1_BASEADDR,dut2.g_uartPatternNum);
 				xil_printf("dut2.patternD_pass!\r\n\r\n");

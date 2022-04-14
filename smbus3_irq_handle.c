@@ -343,7 +343,7 @@ u8 smbus3_irq_handle(u8 smbus_control_buf[])
 
 				case 0x02:
 				{
-					usdelay(500);
+					msdelay(5);
 					//xil_printf("\r\n doing_write_case02\r\n");
 					smbus_get_pinstatus_result = smbus_master_get_pinstate_dut3(SMBUS_DEV3_ADDR, smbus_get_pinstatus_result);
 					//xil_printf("smbus_get_pinstatus_result = %d\r\n", smbus_get_pinstatus_result);
@@ -597,7 +597,7 @@ u8 smbus3_irq_handle(u8 smbus_control_buf[])
 
 			case 0x02:
 			{
-		        usdelay(500);
+		        usdelay(100);
 				//dut3.g_smbus_status_buf[2] = smbus_master_get_pinstate(SMBUS_DEV3_ADDR, smbus_get_pinstatus_result);
 				//xil_printf("dut3_smbus_pinstatus = %x\r\n", dut3.g_smbus_status_buf[2]);
 				//xil_printf("\r\n doing_read_case02\r\n");
