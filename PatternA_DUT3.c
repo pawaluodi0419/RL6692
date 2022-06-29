@@ -33,6 +33,7 @@ u8 _by_PatternA_dut3()
 			{
 				dut3.g_dut_pattern_status_buf[7] = 0x00;
 				dut3.g_pattern_step++;
+				dut3.g_pattern_step++;
 			}
 		}
 		//output fail result
@@ -44,32 +45,32 @@ u8 _by_PatternA_dut3()
 		break;
 	}
 
-	//DP reverse: RL6692 need to write 0x35, not 0x34
-	case 0x0001:
-	{
-		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
-		dut3.g_pattern_smbus_control_buf[2] = 0x15;
-		dut3.g_pattern_smbus_control_buf[3] = 0xc4;
-		dut3.g_pattern_smbus_control_buf[4] = 0x01;
-		dut3.g_pattern_smbus_control_buf[5] = 0x35;
-
-		smbus3_irq_handle(dut3.g_pattern_smbus_control_buf);
-		if(dut3.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
-		{
-			break;
-		}
-		else
-		{
-			for(i=1; i<60; i++)
-			{
-				dut3.g_pattern_smbus_control_buf[i] = CLEAR_;
-			}
-
-			dut3.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
-			dut3.g_pattern_step++;
-		}
-		break;
-	}
+//	//DP reverse: RL6692 need to write 0x35, not 0x34
+//	case 0x0001:
+//	{
+//		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
+//		dut3.g_pattern_smbus_control_buf[2] = 0x15;
+//		dut3.g_pattern_smbus_control_buf[3] = 0xc4;
+//		dut3.g_pattern_smbus_control_buf[4] = 0x01;
+//		dut3.g_pattern_smbus_control_buf[5] = 0x35;
+//
+//		smbus3_irq_handle(dut3.g_pattern_smbus_control_buf);
+//		if(dut3.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
+//		{
+//			break;
+//		}
+//		else
+//		{
+//			for(i=1; i<60; i++)
+//			{
+//				dut3.g_pattern_smbus_control_buf[i] = CLEAR_;
+//			}
+//
+//			dut3.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
+//			dut3.g_pattern_step++;
+//		}
+//		break;
+//	}
 
 	//write pattern index
 	case 0x0002:

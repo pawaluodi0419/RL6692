@@ -5,12 +5,7 @@
  *      Author: kay_yin
  */
 
-
 #include "platform.h"
-
-
-
-
 
 /******************************************************************************
  * XPAR_AXI_TIMER_1_BASEADDR been only used for 100us counter
@@ -38,8 +33,6 @@ void Tmr_Counter_100us(u32 BaseAddress , u32 TmrCtrNumber , u16 TmrCount)
 	u32 TmrLoadValue;
 	u32 ControlStatus_intial;
 	u32 ControlStatus;
-
-
 
 	XTmrCtr_Disable(BaseAddress, TmrCtrNumber);
 	XTmrCtr_DisableIntr(BaseAddress, TmrCtrNumber);
@@ -69,21 +62,7 @@ void Tmr_Counter_100us(u32 BaseAddress , u32 TmrCtrNumber , u16 TmrCount)
 
 	ControlStatus = XTmrCtr_GetControlStatusReg(BaseAddress, TmrCtrNumber);
 	XTmrCtr_SetControlStatusReg(BaseAddress, TmrCtrNumber, (ControlStatus | XTC_CSR_INT_OCCURED_MASK));
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
 
 /******************************************************************************/
 /**
@@ -100,23 +79,17 @@ void Tmr_Counter_100us(u32 BaseAddress , u32 TmrCtrNumber , u16 TmrCount)
 
 void TmrIntvlLoad(u32 BaseAddress,u8 TmrCtrNumber,u32 TmrIntvlValue)
 {
-
 	u32 TmrLoadValue;
 	u32 ControlStatus;
 	u32 Tmr_count = TmrIntvlValue/AXI_TIMER_0_CLOCK_PERD;
 
-
 	if((XTmrCtr_GetControlStatusReg(BaseAddress,TmrCtrNumber)&XTC_CSR_DOWN_COUNT_MASK)==XTC_CSR_DOWN_COUNT_MASK)
 	{
 		TmrLoadValue = Tmr_count-2;
-
-
-
 	}
 	else
 	{
 		TmrLoadValue = 0xFFFFFFFF+2-Tmr_count;
-
 	}
 
 	/*
@@ -133,9 +106,7 @@ void TmrIntvlLoad(u32 BaseAddress,u8 TmrCtrNumber,u32 TmrIntvlValue)
 						 TmrCtrNumber);
 	XTmrCtr_SetControlStatusReg(BaseAddress, TmrCtrNumber,
 				 ControlStatus & (~XTC_CSR_LOAD_MASK));
-
 }
-
 
 /******************************************************************************/
 /**
@@ -157,8 +128,8 @@ void msdelay(u16 DlyTimeValue)
 	for(TimeCnt=0;TimeCnt<DlyTimeValue;TimeCnt++){
 		for(i=0;i<4166;i++);
 	}
-
 }
+
 /******************************************************************************/
 /**
 *
@@ -179,5 +150,4 @@ void usdelay(u16 DlyTimeValue)
 	for(TimeCnt=0;TimeCnt<DlyTimeValue;TimeCnt++){
 		for(i=0;i<4;i++);
 	}
-
 }

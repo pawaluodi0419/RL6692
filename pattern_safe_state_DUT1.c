@@ -57,6 +57,7 @@ void pattern_safe_state_dut1()
 	dut1.g_ft2_test_done = 0x00;
 	dut1.g_uartPatternEnable = 0x00;
 	dut1.g_dut_start_ready = 0;
+	g_timer_flag = 1;
 }
 
 

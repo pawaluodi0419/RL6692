@@ -33,7 +33,7 @@ u8 _by_Pattern_U2_host_test1_dut0()
 				dut0.g_pattern_smbus_control_buf[i] = CLEAR_;
 			}
 
-			dut0.g_result_polling_tmrcount = 20;
+			dut0.g_result_polling_tmrcount = 30;
 			dut0.g_pattern_timer = 0xfff;
 			dut0.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
 			dut0.g_pattern_step = 0x00;
@@ -62,7 +62,7 @@ u8 _by_Pattern_U2_host_test1_dut0()
 
 				dut0.g_result_polling_tmrcount--;
 				xil_printf("dut0.g_result_polling_tmrcount = %d\r\n", dut0.g_result_polling_tmrcount);
-				msdelay(500);	//每500ms polling一次结果
+				msdelay(200);	//每200ms polling一次结果
 			}
 			else
 			{
@@ -76,7 +76,7 @@ u8 _by_Pattern_U2_host_test1_dut0()
 
 	if(dut0.g_result_fail == 0x01)
 	{
-		xil_printf("dut0.pattern_pattern_u2_host_test1_fail! fail_step = %x\r\n",dut0.g_pattern_step);
+		xil_printf("dut0.pattern_u2_host_test1_fail! fail_step = %x\r\n",dut0.g_pattern_step);
 		pattern_safe_state_dut0();
 	}
 
