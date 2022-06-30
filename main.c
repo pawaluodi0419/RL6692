@@ -33,6 +33,7 @@ u8 g_ledD5Tg = 0;
 u8 g_ledD6Tg = 0;
 u8 g_ledD7Tg = 0;
 u8 g_timer_flag = 1;
+u8 g_u2_host_test1_flag = 0;
 
 int main()
 {
@@ -381,6 +382,10 @@ int main()
 				case 0x0C:
 				{
 					//_by_Pattern_U2_host_test1_dut0();
+					if(g_u2_host_test1_flag)
+					{
+						dut0.g_uartPatternNum++;
+					}
 					break;
 				}
 				case 0x0D:
@@ -513,6 +518,10 @@ int main()
 				case 0x0C:
 				{
 					//_by_Pattern_U2_host_test1_dut1();
+					if(g_u2_host_test1_flag)
+					{
+						dut1.g_uartPatternNum++;
+					}
 					break;
 				}
 				case 0x0D:
@@ -644,7 +653,11 @@ int main()
 				}
 				case 0x0C:
 				{
-					_by_Pattern_U2_host_test1_dut2();
+					//_by_Pattern_U2_host_test1_dut2();
+					if(g_u2_host_test1_flag)
+					{
+						dut2.g_uartPatternNum++;
+					}
 					break;
 				}
 				case 0x0D:
@@ -776,7 +789,11 @@ int main()
 				}
 				case 0x0C:
 				{
-					_by_Pattern_U2_host_test1_dut3();
+					//_by_Pattern_U2_host_test1_dut3();
+					if(g_u2_host_test1_flag)
+					{
+						dut3.g_uartPatternNum++;
+					}
 					break;
 				}
 				case 0x0D:

@@ -739,67 +739,8 @@ u8 _by_Pattern0_Setup_dut3()
 //		break;
 //	}
 
-	case 0x0016:
-	{
-		dut3.g_start_test_flag1 = 0x01;
-
-		i2c_get_result_dut3(AD7994_DEV0_ADDR, USB_HOST_ADDR);
-		msdelay(5);
-
-		for(i=0;i<5;i++)
-		{
-			xil_printf("dut3.g_i2cRecBuf[%02d]= %02x\r\n", i, dut3.g_i2cRecBuf[i]);
-		}
-		xil_printf("\r\n");
-
-		dut3.g_pattern_step++;
-
-		break;
-	}
-
-	case 0x0017:
-	{
-		if((dut3.g_i2cRecBuf[4] & 0x07) == 0x07)
-		{
-			xil_printf("dut3.pattern_u2_host_test1_pass!\r\n\r\n");
-
-			dut3.g_result_polling_tmrcount = 30;
-			dut3.g_pattern_step++;
-		}
-		else
-		{
-			if(dut3.g_result_polling_tmrcount > 0)
-			{
-				i2c_get_result_dut3(AD7994_DEV0_ADDR, USB_HOST_ADDR);
-				msdelay(5);
-
-//				for(i=0;i<5;i++)
-//				{
-//					dut3.g_i2cRecBuf[i] = get_result_databuf[i];
-//				}
-
-				for(i=0;i<5;i++)
-				{
-					xil_printf("dut3.g_i2cRecBuf[%02d]= %02x\r\n", i, dut3.g_i2cRecBuf[i]);
-				}
-
-				dut3.g_result_polling_tmrcount--;
-				xil_printf("dut3.g_result_polling_tmrcount = %d\r\n", dut3.g_result_polling_tmrcount);
-				msdelay(200);	//每200ms polling一次结果
-			}
-			else
-			{
-				xil_printf("dut3.pattern_u2_host_test1_fail!\r\n\r\n");
-
-				dut3.g_result_fail = 0x01;
-				dut3.g_result_fail_tmrcount = 0xffff;
-			}
-		}
-		break;
-	}
-
 	//check MCM flash ID
-	case 0x0018:
+	case 0x0016:
 	{
 		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_vdcmdenable;
 		dut3.g_pattern_smbus_control_buf[2] = 0x04;

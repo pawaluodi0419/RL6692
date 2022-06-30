@@ -40,6 +40,15 @@ void axi_tmr1_intrq_handle()
 	//enter interrupt count ++
 	dut0.g_axiTmr1Cnt++;
 
+	if(XGpio_Dutx_ReadBit(XPAR_AXI_GPIO_dut1_1_BASEADDR, 0, 1) == 1)
+	{
+		g_u2_host_test1_flag = 1;
+	}
+	else
+	{
+		g_u2_host_test1_flag = 0;
+	}
+
 	//clear the axi timer1 count0 interrupt flag
 	a=XTmrCtr_GetControlStatusReg(XPAR_AXI_TIMER_1_BASEADDR,0);
     XTmrCtr_SetControlStatusReg(XPAR_AXI_TIMER_1_BASEADDR,0,a);
