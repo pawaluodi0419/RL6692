@@ -115,13 +115,14 @@ void axi_tmr2_intrq_handle()
 		}
 
 		////////////////pattern_timer/////////////
-		if(dut0.g_pattern_timer&0xffffffff == 0x00)
+		if(dut0.g_pattern_timer == 0)
 		{
-			dut0.g_result_fail = 0x01;
-			xil_printf("dut0.g_pattern_timer = %x\r\n\r\n",dut0.g_pattern_timer);
+			pattern_safe_state_dut0();
+			xil_printf("fpga no response, please check environment!\r\n\r\n");
 		}
-		else if((dut0.g_pattern_timer&0xffffffff)> 0x00)
+		else
 		{
+			//xil_printf("dut0.g_pattern_timer = %d\r\n", dut0.g_pattern_timer);
 			dut0.g_pattern_timer--;
 		}
 	}
@@ -174,12 +175,12 @@ void axi_tmr2_intrq_handle()
 		}
 
 		////////////////pattern_timer/////////////
-		if(dut1.g_pattern_timer&0xffffffff == 0x00)
+		if(dut1.g_pattern_timer == 0)
 		{
-			dut1.g_result_fail = 0x01;
-			xil_printf("dut1.g_pattern_timer = %x\r\n\r\n",dut1.g_pattern_timer);
+			pattern_safe_state_dut1();
+			xil_printf("fpga no response, please check environment!\r\n\r\n");
 		}
-		else if((dut1.g_pattern_timer&0xffffffff)> 0x00)
+		else
 		{
 			dut1.g_pattern_timer--;
 		}
@@ -233,12 +234,12 @@ void axi_tmr2_intrq_handle()
 		}
 
 		////////////////pattern_timer/////////////
-		if(dut2.g_pattern_timer&0xffffffff == 0x00)
+		if(dut2.g_pattern_timer == 0)
 		{
-			dut2.g_result_fail = 0x01;
-			xil_printf("dut2.g_pattern_timer = %x\r\n\r\n",dut2.g_pattern_timer);
+			pattern_safe_state_dut2();
+			xil_printf("fpga no response, please check environment!\r\n\r\n");
 		}
-		else if((dut2.g_pattern_timer&0xffffffff)> 0x00)
+		else
 		{
 			dut2.g_pattern_timer--;
 		}
@@ -292,15 +293,14 @@ void axi_tmr2_intrq_handle()
 		}
 
 		////////////////pattern_timer/////////////
-		if(dut3.g_pattern_timer&0xffffffff == 0x00)
+		if(dut3.g_pattern_timer == 0)
 		{
-			dut3.g_result_fail = 0x01;
-			xil_printf("dut3.g_pattern_timer = %x\r\n\r\n",dut3.g_pattern_timer);
+			pattern_safe_state_dut3();
+			xil_printf("fpga no response, please check environment!\r\n\r\n");
 		}
-		else if((dut3.g_pattern_timer&0xffffffff)> 0x00)
+		else
 		{
 			dut3.g_pattern_timer--;
-			//xil_printf("dut3.g_pattern_timer = %x\r\n\r\n",dut3.g_pattern_timer);
 		}
 	}
 

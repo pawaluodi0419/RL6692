@@ -111,7 +111,7 @@ int main()
     TmrIntvlLoad(XPAR_AXI_TIMER_0_BASEADDR,0,10000);
     XTmrCtr_Enable(XPAR_AXI_TIMER_0_BASEADDR, 0);
 
-    TmrIntvlLoad(XPAR_AXI_TIMER_1_BASEADDR,0,200000);
+    TmrIntvlLoad(XPAR_AXI_TIMER_1_BASEADDR,0,100000);
     XTmrCtr_Enable(XPAR_AXI_TIMER_1_BASEADDR, 0);
 
     TmrIntvlLoad(XPAR_AXI_TIMER_2_BASEADDR,0,700);
@@ -166,10 +166,10 @@ int main()
   		dut3.g_dut_pattern_status_buf[i] = 0x00;
   	}
 
-  	dut0.g_pattern_timer = 0xff;
-  	dut1.g_pattern_timer = 0xff;
-  	dut2.g_pattern_timer = 0xff;
-  	dut3.g_pattern_timer = 0xff;
+  	dut0.g_pattern_timer = 0x3fff;
+  	dut1.g_pattern_timer = 0x3fff;
+  	dut2.g_pattern_timer = 0x3fff;
+  	dut3.g_pattern_timer = 0x3fff;
 
 	dut0.g_relay_control_timer = 0xff;
 	dut1.g_relay_control_timer = 0xff;
@@ -226,10 +226,10 @@ int main()
 	dut2.g_gpio_reread_timer = 3;
 	dut3.g_gpio_reread_timer = 3;
 
-	dut0.g_result_polling_tmrcount = 30;
-	dut1.g_result_polling_tmrcount = 30;
-	dut2.g_result_polling_tmrcount = 30;
-	dut3.g_result_polling_tmrcount = 30;
+	dut0.g_result_polling_tmrcount = 50;
+	dut1.g_result_polling_tmrcount = 50;
+	dut2.g_result_polling_tmrcount = 50;
+	dut3.g_result_polling_tmrcount = 50;
 
 	dut0.g_start_test_flag1 = 0x00;
 	dut1.g_start_test_flag1 = 0x00;
@@ -854,10 +854,10 @@ int main()
 			dut2.g_start_test_flag1 = 0x00;
 			dut3.g_start_test_flag1 = 0x00;
 
-			dut0.g_result_polling_tmrcount = 30;
-			dut1.g_result_polling_tmrcount = 30;
-			dut2.g_result_polling_tmrcount = 30;
-			dut3.g_result_polling_tmrcount = 30;
+			dut0.g_result_polling_tmrcount = 50;
+			dut1.g_result_polling_tmrcount = 50;
+			dut2.g_result_polling_tmrcount = 50;
+			dut3.g_result_polling_tmrcount = 50;
 
 			i2c_send_vendorcmd(AD7994_DEV0_ADDR, USB_HOST_ADDR, FIRST_TEST);
 			msdelay(5);
@@ -874,10 +874,10 @@ int main()
 			dut2.g_start_test_flag2 = 0x00;
 			dut3.g_start_test_flag2 = 0x00;
 
-//			dut0.g_result_polling_tmrcount = 30;
-//			dut1.g_result_polling_tmrcount = 30;
-//			dut2.g_result_polling_tmrcount = 30;
-//			dut3.g_result_polling_tmrcount = 30;
+//			dut0.g_result_polling_tmrcount = 50;
+//			dut1.g_result_polling_tmrcount = 50;
+//			dut2.g_result_polling_tmrcount = 50;
+//			dut3.g_result_polling_tmrcount = 50;
 
 			i2c_send_vendorcmd(AD7994_DEV0_ADDR, USB_HOST_ADDR, SECOND_TEST);
 			msdelay(5);

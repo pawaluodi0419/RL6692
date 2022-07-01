@@ -99,7 +99,7 @@ u8 _by_PatternF_efuse_dut1()
 				{
 					dut1.g_pattern_smbus_control_buf[i] = CLEAR_;
 				}
-				dut1.g_pattern_timer = 0xfff;
+				dut1.g_pattern_timer = 0x3fff;
 				dut1.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
 				dut1.g_pattern_step = 0x00;
 				//dut1.g_dut_pattern_status_buf[2]++;
@@ -142,7 +142,7 @@ u8 _by_PatternF_efuse_dut1()
 //			{
 //				dut1.g_pattern_smbus_control_buf[i] = CLEAR_;
 //			}
-//			dut1.g_pattern_timer = 0xfff;
+//			dut1.g_pattern_timer = 0x3fff;
 //			dut1.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
 //			dut1.g_pattern_step = 0x00;
 //			//dut1.g_dut_pattern_status_buf[2]++;
@@ -310,7 +310,7 @@ u8 _by_PatternF_efuse_dut1()
 //			{
 //				dut1.g_pattern_smbus_control_buf[i] = CLEAR_;
 //			}
-//			dut1.g_pattern_timer = 0xfff;
+//			dut1.g_pattern_timer = 0x3fff;
 //			dut1.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
 //			dut1.g_pattern_step = 0x00;
 //			//dut1.g_dut_pattern_status_buf[2]++;
@@ -356,7 +356,7 @@ u8 _by_PatternF_efuse_dut1()
 //			{
 //				dut1.g_pattern_smbus_control_buf[i] = CLEAR_;
 //			}
-//			dut1.g_pattern_timer = 0xfff;
+//			dut1.g_pattern_timer = 0x3fff;
 //			dut1.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
 //			dut1.g_pattern_step = 0x00;
 //			//dut1.g_dut_pattern_status_buf[2]++;
@@ -470,7 +470,7 @@ u8 _by_PatternF_efuse_dut1()
 //					{
 //						dut1.g_pattern_smbus_control_buf[i] = CLEAR_;
 //					}
-//					dut1.g_pattern_timer = 0xfff;
+//					dut1.g_pattern_timer = 0x3fff;
 //					dut1.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
 //					dut1.g_pattern_step = 0x00;
 //					//dut1.g_dut_pattern_status_buf[2]++;
