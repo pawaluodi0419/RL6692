@@ -37,7 +37,7 @@ u8 _by_Pattern0_Setup_dut0()
 				dut0.g_pattern_step++;
 
 				//XGpio_2_WriteBit(0,dut0_FT2_PWR_CTRL_OFFSET,0x00);	//S0_PWR_EN# output low, power on DUT
-				i2c_mcp23008_output(AD7994_DEV0_ADDR, MCP23008_ADDR, 0x80);
+				i2c_mcp23008_output(AD7994_DEV0_ADDR, MCP23008_ADDR, 0xc0);
 				xil_printf("dut0 power on!\r\n\r\n");
 				msdelay(200);
 			}

@@ -11,10 +11,6 @@ u8 _by_PatternF_efuse_dut1()
 	//power rail: S1_5V_SW(XGPIO8 -> L)
 	case 0x0000:
 	{
-		//LDO output 5.55V
-		i2c_mcp23008_output(AD7994_DEV1_ADDR, MCP23008_ADDR, 0xc0);
-		msdelay(10);
-
 		if(dut1.g_dut_pattern_status_buf[7] == 0x00)
 		{
 			Buff_dut1_XGPIO_0[0] = 0x30;                            //REG0005 ouput value[7:0]

@@ -37,7 +37,7 @@ u8 g_u2_host_test1_flag = 0;
 
 int main()
 {
-	xil_printf("FT2 start!\r\nFPGA Version:RTS5456H_FT_Merge_Release_2021121701\r\n");
+	xil_printf("FT2 start!\r\nFPGA Version:RTS5456H_FT_Merge_Release_2022080301\r\n");
 
 	XGpio_WriteBit(XPAR_AXI_GPIO_1_BASEADDR,0,1, 0);	//reset usb host
 	msdelay(100);

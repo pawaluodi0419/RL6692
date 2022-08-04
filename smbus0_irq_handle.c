@@ -330,7 +330,7 @@ u8 smbus0_irq_handle(u8 smbus_control_buf[])
 						dut0.g_smbus_style++;
 						dut0.g_smbus_timer = smbus_master_write_before_pinstatus_timer;
 
-						dut0.g_smbus_retry_timer = 0x64;
+						dut0.g_smbus_retry_timer = 0x7d0;
 						dut0.g_pattern_smbus_control_buf[0] = smbus_road_doing;
 						smbus0_process_state = smbus_road_doing;
 
@@ -343,7 +343,14 @@ u8 smbus0_irq_handle(u8 smbus_control_buf[])
 
 				case 0x02:
 				{
-					msdelay(5);
+					if((smbus_control_buf[2] == 0x07) && (smbus_control_buf[3] == 0xdf))
+					{
+						msdelay(50);
+					}
+					else
+					{
+						msdelay(1);
+					}
 					//xil_printf("\r\n doing_write_case02\r\n");
 					smbus_get_pinstatus_result = smbus_master_get_pinstate_dut0(SMBUS_DEV0_ADDR, smbus_get_pinstatus_result);
 					//xil_printf("smbus_get_pinstatus_result = %d\r\n", smbus_get_pinstatus_result);
@@ -583,7 +590,7 @@ u8 smbus0_irq_handle(u8 smbus_control_buf[])
 					dut0.g_smbus_style++;
 					dut0.g_smbus_timer = smbus_master_write_before_pinstatus_timer;
 
-					dut0.g_smbus_retry_timer = 0x4e20;
+					dut0.g_smbus_retry_timer = 0x7d0;
 					dut0.g_pattern_smbus_control_buf[0] = smbus_road_doing;
 					smbus0_process_state = smbus_road_doing;
 
@@ -597,7 +604,7 @@ u8 smbus0_irq_handle(u8 smbus_control_buf[])
 
 			case 0x02:
 			{
-		        usdelay(100);
+		        msdelay(1);
 				//dut0.g_smbus_status_buf[2] = smbus_master_get_pinstate(SMBUS_DEV0_ADDR, smbus_get_pinstatus_result);
 				//xil_printf("dut0_smbus_pinstatus = %x\r\n", dut0.g_smbus_status_buf[2]);
 				//xil_printf("\r\n doing_read_case02\r\n");
@@ -802,258 +809,8 @@ u8 smbus0_irq_handle(u8 smbus_control_buf[])
 		}
 	}
 
-	//smbus_reset_to_flash//
-	if(smbus0_cmd_code == 0x05)
-	{
-		switch(smbus0_process_state)
-		{
-		case smbus_road_waiting:
-		{
-			dut0.g_smbus_status_buf[0] = CLEAR_;
-			dut0.g_smbus_status_buf[1] = CLEAR_;
-			dut0.g_smbus_status_buf[2] = CLEAR_;
-
-		    smbus_writecmd_buf[0] = smbus_control_buf[1];
-		    smbus_writecmd_buf[1] = 0x03;
-		    smbus_writecmd_buf[2] = smbus_control_buf[2];
-		    smbus_writecmd_buf[3] = smbus_control_buf[3];
-		    smbus_writecmd_buf[4] = smbus_control_buf[4];
-
-		    smbus_master_write_blockwrite(SMBUS_DEV0_ADDR, smbus_writecmd_buf, 5);
-			isr_reg = XIic_ReadReg(SMBUS_DEV0_ADDR,  XIIC_IISR_OFFSET);
-			if((isr_reg &0x02) != 0)
-			{
-				dut0.g_result_fail=0x01;
-				dut0.g_result_fail_tmrcount = 0xffff;
-			}
-			//smbus_writedata_buf[smbus_writedata_count] = clear_;
-			dut0.g_smbus_status_buf[0]++;
-			dut0.g_smbus_status_buf[1] = smbus_master_write_blockwrite_timer;
-			dut0.g_smbus_style++;
-			dut0.g_smbus_timer = smbus_master_write_blockwrite_timer;
-
-			//xil_printf("waiting_write\r\n");
-			//xil_printf("dut0_smbus_style = %x\r\n", dut0.g_smbus_style);
-			//xil_printf("dut0_smbus_timer = %x\r\n", dut0.g_smbus_timer);
-
-			dut0.g_pattern_smbus_control_buf[0] = smbus_road_doing;
-			smbus0_process_state = smbus_road_doing;
-			break;
-		}
-
-		case smbus_road_doing:
-		{
-//			if(dut0.g_smbus_timer != 0)
-//			{
-//				if((dut0.g_axiTmr2Cnt&0x7f)==0x64)
-//				{
-//					XGpio_0_WriteBit(0,LED_D7_OFFSET,g_ledD7Tg);
-//					g_ledD7Tg=~g_ledD7Tg;
-//				}
-//			}
-//			else
-//			{
-//				if((dut0.g_axiTmr2Cnt&0x7f)==0x64)
-//				{
-//					XGpio_0_WriteBit(0,LED_D5_OFFSET,g_ledD5Tg);
-//					g_ledD5Tg=~g_ledD5Tg;
-//				}
-
-				switch(dut0.g_smbus_style)
-				{
-				case 0x00:
-				{
-					dut0.g_smbus_status_buf[0] = CLEAR_;
-					dut0.g_smbus_status_buf[1] = CLEAR_;
-					dut0.g_smbus_status_buf[2] = CLEAR_;
-
-				    smbus_writecmd_buf[0] = smbus_control_buf[1];
-				    smbus_writecmd_buf[1] = 0x03;
-				    smbus_writecmd_buf[2] = smbus_control_buf[2];
-				    smbus_writecmd_buf[3] = smbus_control_buf[3];
-				    smbus_writecmd_buf[4] = smbus_control_buf[4];
-
-				    smbus_master_write_blockwrite(SMBUS_DEV0_ADDR, smbus_writecmd_buf, 5);
-					isr_reg = XIic_ReadReg(SMBUS_DEV0_ADDR,  XIIC_IISR_OFFSET);
-					if((isr_reg &0x02) != 0)
-					{
-						dut0.g_result_fail=0x01;
-						dut0.g_result_fail_tmrcount = 0xffff;
-					}
-					//smbus_writedata_buf[smbus_writedata_count] = clear_;
-					dut0.g_smbus_status_buf[0]++;
-					dut0.g_smbus_status_buf[1] = smbus_master_write_blockwrite_timer;
-					//dut0.g_smbus_style = dut0.g_smbus_status_buf[0];
-					//dut0.g_smbus_timer = dut0.g_smbus_status_buf[1];
-					dut0.g_smbus_style++;
-					dut0.g_smbus_timer = smbus_master_write_blockwrite_timer;
-
-					dut0.g_pattern_smbus_control_buf[0] = smbus_road_doing;
-					smbus0_process_state = smbus_road_doing;
-					//xil_printf("doing_write_case00\r\n");
-					//xil_printf("dut0_smbus_style = %x\r\n", dut0.g_smbus_style);
-					//xil_printf("dut0_smbus_timer = %x\r\n", dut0.g_smbus_timer);
-					break;
-				}
-				/*
-				case 0x01:
-				{
-					//xil_printf("\r\n doing_write_case01\r\n");
-					statusreg = XIic_ReadReg(SMBUS_DEV0_ADDR,  XIIC_SR_REG_OFFSET);
-					if((statusreg & XIIC_SR_BUS_BUSY_MASK) == 1)
-					{
-						dut0.g_pattern_smbus_control_buf[0] = smbus_master_communication_fail;
-						return 0;
-					}
-					else
-					{
-						dut0.g_smbus_status_buf[0]++;
-						dut0.g_smbus_status_buf[1] = smbus_master_write_before_pinstatus_timer;
-						dut0.g_smbus_style++;
-						dut0.g_smbus_timer = smbus_master_write_before_pinstatus_timer;
-
-						dut0.g_smbus_retry_timer = 0x32;
-						dut0.g_pattern_smbus_control_buf[0] = smbus_road_doing;
-						smbus0_process_state = smbus_road_doing;
-
-						//xil_printf("doing_write_case01\r\n");
-						//xil_printf("dut0_smbus_style = %x\r\n", dut0.g_smbus_style);
-						//xil_printf("dut0_smbus_timer = %x\r\n", dut0.g_smbus_timer);
-					}
-					break;
-				}
-
-				case 0x02:
-				{
-					usdelay(10);
-					//xil_printf("\r\n doing_write_case02\r\n");
-					smbus_get_pinstatus_result = smbus_master_get_pinstate_dut0(SMBUS_DEV0_ADDR, smbus_get_pinstatus_result);
-					//xil_printf("smbus_get_pinstatus_result = %d\r\n", smbus_get_pinstatus_result);
-
-					//dut0.g_smbus_status_buf[0]++;
-					dut0.g_smbus_status_buf[1] = smbus_master_write_pinstatus_timer;
-					//dut0.g_smbus_style++;
-					dut0.g_smbus_timer = smbus_master_write_pinstatus_timer;
-
-					dut0.g_pattern_smbus_control_buf[0] = smbus_road_doing;
-					smbus0_process_state = smbus_road_doing;
-
-					switch(smbus_get_pinstatus_result)
-					{
-					case 0x00:
-					{
-						if(dut0.g_smbus_retry_timer >0)
-						{
-							dut0.g_smbus_retry_timer--;
-						}
-						else
-						{
-							dut0.g_result_fail=0x01;
-							dut0.g_result_fail_tmrcount = 0xffff;
-							dut0.g_smbus_status_buf[0] = clear_;
-							dut0.g_smbus_status_buf[1] = clear_;
-							dut0.g_smbus_status_buf[2] = clear_;
-							dut0.g_smbus_style = clear_;
-							dut0.g_smbus_timer = clear_;
-						}
-						break;
-					}
-					case 0x01:
-					{
-						dut0.g_smbus_status_buf[0]++;
-						dut0.g_smbus_status_buf[2] = 0x01;
-						dut0.g_smbus_style++;
-						break;
-					}
-					case 0x02:
-					{
-						if(dut0.g_smbus_retry_timer >0)
-						{
-							dut0.g_smbus_retry_timer--;
-						}
-						else
-						{
-							dut0.g_result_fail=0x01;
-							dut0.g_result_fail_tmrcount = 0xffff;
-							dut0.g_smbus_status_buf[0] = clear_;
-							dut0.g_smbus_status_buf[1] = clear_;
-							dut0.g_smbus_status_buf[2] = clear_;
-							dut0.g_smbus_style = clear_;
-							dut0.g_smbus_timer = clear_;
-						}
-						break;
-					}
-					case 0x03:
-					{
-						dut0.g_result_fail=0x01;
-						dut0.g_result_fail_tmrcount = 0xffff;
-						dut0.g_smbus_status_buf[0] = clear_;
-						dut0.g_smbus_status_buf[1] = clear_;
-						dut0.g_smbus_status_buf[2] = clear_;
-						dut0.g_smbus_style = clear_;
-						dut0.g_smbus_timer = clear_;
-						break;
-					}
-					}
-
-					//xil_printf("doing_write_case02\r\n");
-					//xil_printf("smbus_get_pinstatus_result = %d\r\n", smbus_get_pinstatus_result);
-					//xil_printf("dut0_smbus_style = %x\r\n", dut0.g_smbus_style);
-					//xil_printf("dut0_smbus_timer = %x\r\n", dut0.g_smbus_timer);
-					break;
-				}
-				*/
-				case 0x01:
-				{
-					//xil_printf("\r\n doing_write_case03\r\n");
-					statusreg = XIic_ReadReg(SMBUS_DEV0_ADDR,  XIIC_SR_REG_OFFSET);
-
-					//xil_printf("smbus_get_pinstatus_result = %d\r\n", smbus_get_pinstatus_result);
-					//xil_printf("dut0_statusreg = %d\r\n", statusreg);
-
-					if((statusreg & XIIC_SR_BUS_BUSY_MASK) == 0x01)
-					{
-						dut0.g_pattern_smbus_control_buf[0] = smbus_master_communication_fail;
-						smbus0_process_state = smbus_master_communication_fail;
-
-						dut0.g_smbus_status_buf[0] = clear_;
-						dut0.g_smbus_status_buf[1] = clear_;
-						dut0.g_smbus_style = clear_;
-						dut0.g_smbus_timer = clear_;
-						dut0.g_smbus_status_buf[2] = clear_;
-					}
-					else if((statusreg & XIIC_SR_BUS_BUSY_MASK) == 0)
-					{
-						dut0.g_pattern_smbus_control_buf[0] = smbus_master_communication_pass;
-						smbus0_process_state = smbus_master_communication_pass;
-
-						dut0.g_smbus_status_buf[0] = clear_;
-						dut0.g_smbus_status_buf[1] = clear_;
-						dut0.g_smbus_style = clear_;
-						dut0.g_smbus_timer = clear_;
-						dut0.g_smbus_status_buf[2] = clear_;
-					}
-					else
-					{
-						dut0.g_pattern_smbus_control_buf[0] = smbus_master_communication_fail;
-
-						dut0.g_smbus_status_buf[0] = clear_;
-						dut0.g_smbus_status_buf[1] = clear_;
-						dut0.g_smbus_status_buf[2] = clear_;
-						dut0.g_smbus_style = clear_;
-						dut0.g_smbus_timer = clear_;
-					}
-					break;
-				}
-				}
-//			}
-			break;
-		}
-		}
-	}
-
-	//smbus_reset_to_rom/smbus_erase_flash//
-	if(((smbus0_cmd_code == 0x01) && (smbus0_cmd_code_add == 0xda)) | (smbus0_cmd_code == 0x02) | (smbus0_cmd_code == 0x03))
+	//smbus_reset_to_rom/smbus_erase_flash/smbus_reset_to_flash//
+	if(((smbus0_cmd_code == 0x01) && (smbus0_cmd_code_add == 0xda)) | (smbus0_cmd_code == 0x02) | (smbus0_cmd_code == 0x03) | (smbus0_cmd_code == 0x05))
 	{
 		switch(smbus0_process_state)
 		{

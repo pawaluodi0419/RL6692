@@ -12,9 +12,6 @@ u8 _by_Pattern_PD_msg_dut1()
 	//DP obverse/U2 mux A: XGPIO22 -> L
 	case 0x0000:
 	{
-		i2c_mcp23008_output(AD7994_DEV1_ADDR, MCP23008_ADDR, 0x80);
-		msdelay(10);
-
 		if(dut1.g_dut_pattern_status_buf[7] == 0x00)
 		{
 			Buff_dut1_XGPIO_0[0] = 0x31;                            //REG0005 ouput value[7:0]
@@ -50,13 +47,92 @@ u8 _by_Pattern_PD_msg_dut1()
 		break;
 	}
 
-	//MCU reboot: rh_smbusgeticstatus 0xcc 64 1
 	case 0x0001:
 	{
-		dut1.g_pattern_smbus_control_buf[1] = smbus_cmd_type_geticstatus;
-		dut1.g_pattern_smbus_control_buf[2] = 0x40;
-		dut1.g_pattern_smbus_control_buf[3] = 0x00;
+		dut1.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
+		dut1.g_pattern_smbus_control_buf[2] = 0x3d;
+		dut1.g_pattern_smbus_control_buf[3] = 0xdf;
 		dut1.g_pattern_smbus_control_buf[4] = 0x01;
+		dut1.g_pattern_smbus_control_buf[5] = 0x80;
+
+		smbus1_irq_handle(dut1.g_pattern_smbus_control_buf);
+		if(dut1.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
+		{
+			break;
+		}
+		else
+		{
+			for(i=1; i<60; i++)
+			{
+				dut1.g_pattern_smbus_control_buf[i] = CLEAR_;
+			}
+
+			dut1.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
+			dut1.g_pattern_step++;
+		}
+		break;
+	}
+
+	//MCU reboot
+	case 0x0002:
+	{
+		dut1.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
+		dut1.g_pattern_smbus_control_buf[2] = 0x08;
+		dut1.g_pattern_smbus_control_buf[3] = 0xdf;
+		dut1.g_pattern_smbus_control_buf[4] = 0x01;
+		dut1.g_pattern_smbus_control_buf[5] = 0xff;
+
+		smbus1_irq_handle(dut1.g_pattern_smbus_control_buf);
+		if(dut1.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
+		{
+			break;
+		}
+		else
+		{
+			for(i=1; i<60; i++)
+			{
+				dut1.g_pattern_smbus_control_buf[i] = CLEAR_;
+			}
+
+			dut1.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
+			dut1.g_pattern_step++;
+		}
+		break;
+	}
+
+	case 0x0003:
+	{
+		dut1.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
+		dut1.g_pattern_smbus_control_buf[2] = 0x08;
+		dut1.g_pattern_smbus_control_buf[3] = 0xdf;
+		dut1.g_pattern_smbus_control_buf[4] = 0x01;
+		dut1.g_pattern_smbus_control_buf[5] = 0x00;
+
+		smbus1_irq_handle(dut1.g_pattern_smbus_control_buf);
+		if(dut1.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
+		{
+			break;
+		}
+		else
+		{
+			for(i=1; i<60; i++)
+			{
+				dut1.g_pattern_smbus_control_buf[i] = CLEAR_;
+			}
+
+			dut1.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
+			dut1.g_pattern_step++;
+		}
+		break;
+	}
+
+	case 0x0004:
+	{
+		dut1.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
+		dut1.g_pattern_smbus_control_buf[2] = 0x07;
+		dut1.g_pattern_smbus_control_buf[3] = 0xdf;
+		dut1.g_pattern_smbus_control_buf[4] = 0x01;
+		dut1.g_pattern_smbus_control_buf[5] = 0x80;
 
 		smbus1_irq_handle(dut1.g_pattern_smbus_control_buf);
 		if(dut1.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
@@ -77,7 +153,7 @@ u8 _by_Pattern_PD_msg_dut1()
 		break;
 	}
 
-	case 0x0002:
+	case 0x0005:
 	{
 		dut1.g_pattern_smbus_control_buf[1] = smbus_cmd_type_vdcmdenable;
 		dut1.g_pattern_smbus_control_buf[2] = 0xda;
@@ -109,7 +185,7 @@ u8 _by_Pattern_PD_msg_dut1()
 //		dut1.g_pattern_smbus_control_buf[2] = 0x15;
 //		dut1.g_pattern_smbus_control_buf[3] = 0xc4;
 //		dut1.g_pattern_smbus_control_buf[4] = 0x01;
-//		dut1.g_pattern_smbus_control_buf[5] = 0x31;
+//		dut1.g_pattern_smbus_control_buf[5] = 0x34;
 //
 //		smbus1_irq_handle(dut1.g_pattern_smbus_control_buf);
 //		if(dut1.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
@@ -165,7 +241,7 @@ u8 _by_Pattern_PD_msg_dut1()
 //	}
 
 	//polling ack bit
-	case 0x0003:
+	case 0x0006:
 	{
 		dut1.g_pattern_smbus_control_buf[1] = smbus_cmd_type_readmem;
 		dut1.g_pattern_smbus_control_buf[2] = 0x33;
