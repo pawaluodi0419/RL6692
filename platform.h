@@ -42,8 +42,6 @@
 #include "gpio_drv.h"
 #include "smbus_drv.h"
 #include "smbus_irq_handle.h"
-#include "spi_drv.h"
-#include "spi_flash_drv.h"
 #include "state_define.h"
 #include "timer_drv.h"
 #include "uart_drv.h"
@@ -71,6 +69,7 @@
 #include "Pattern_U2_host_test2.h"
 #include "Pattern_Softdelink_current_test.h"
 #include "Pattern_check_crc32.h"
+#include "Pattern_clock_detect_test.h"
 
 #include "mcp23008_drv.h"
 #include "usb_host_communication.h"
@@ -206,6 +205,9 @@ u8	g_ft2_test_done;
 u8 	g_current_data_buf[20];
 //u8 	g_current_data_sum;
 u8 	g_current_data_centre;
+
+u32 g_clock_detect_reg_data_buf[10];
+u8  g_clock_detect_polling_tmrcount;
 };
 
 extern u8 g_opaLedTg;

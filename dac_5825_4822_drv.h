@@ -41,12 +41,12 @@ void i2c_max5825_output(u32 i2c_fpga_baseaddr,u8 slave_addr,u8 byChannel,u32 Vol
 #define 	DAC_DEV2_ADDR		XPAR_AXI_SPI_DUT2_1_BASEADDR
 #define 	DAC_DEV3_ADDR		XPAR_AXI_SPI_DUT3_1_BASEADDR
 
-void _by_mcp4822_output_control_dut0(u8 dac_data_control_buf[]);
-void _by_mcp4822_output_control_dut1(u8 dac_data_control_buf[]);
-void _by_mcp4822_output_control_dut2(u8 dac_data_control_buf[]);
-void _by_mcp4822_output_control_dut3(u8 dac_data_control_buf[]);
-
-void DAC_WriteWords(u32 dacDevAddr, u8 ChSel,u8 GainSel,u8 OpaMode,u16 Date);
+//void _by_mcp4822_output_control_dut0(u8 dac_data_control_buf[]);
+//void _by_mcp4822_output_control_dut1(u8 dac_data_control_buf[]);
+//void _by_mcp4822_output_control_dut2(u8 dac_data_control_buf[]);
+//void _by_mcp4822_output_control_dut3(u8 dac_data_control_buf[]);
+//
+//void DAC_WriteWords(u32 dacDevAddr, u8 ChSel,u8 GainSel,u8 OpaMode,u16 Date);
 
 
 

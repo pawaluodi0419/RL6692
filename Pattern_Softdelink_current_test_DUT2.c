@@ -253,38 +253,14 @@ u8 _by_Pattern_Softdelink_current_test_dut2()
 			{
 				dut2.g_pattern_smbus_control_buf[i] = CLEAR_;
 			}
-
+			dut2.g_pattern_timer = 0x3fff;
 			dut2.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
-			dut2.g_pattern_step++;
+			dut2.g_pattern_step = 0x00;
+			//dut2.g_dut_pattern_status_buf[2]++;
+			dut2.g_uartPatternEnable = 0x00;
+			dut2.g_uartPatternNum++;
+			result_output_for_v50(XPAR_AXI_GPIO_dut2_1_BASEADDR,dut2.g_uartPatternNum);
 		}
-		break;
-	}
-
-	case 0x0005:
-	{
-		dut2.g_dut_start_ready = 0;
-
-		if(Loop_run_enable == 1)
-		{
-			dut2.g_dut_start_ready = 0x11;
-			dut2.g_uartPatternNum = 0x00;
-			dut2.g_test_count++;
-			xil_printf("dut2.g_test_count =%x\r\n", dut2.g_test_count);
-		}
-		else
-		{
-			dut2.g_uartPatternNum = 0x17;
-			dut2.g_pass_count++;
-		}
-		result_output_for_v50(XPAR_AXI_GPIO_dut2_1_BASEADDR,dut2.g_uartPatternNum);
-		xil_printf("\r\ndut2.FT2_pass, dut2.g_pass_count = %d\r\n\r\n", dut2.g_pass_count);
-		//xil_printf("dut2.g_ft2_test_done = %x\r\n",dut2.g_ft2_test_done);
-		//xil_printf("dut2.g_dut_start_ready = %x\r\n\r\n",dut2.g_dut_start_ready);
-		//xil_printf("dut2.g_result_fail = %x\r\n\r\n",dut2.g_result_fail);
-		//xil_printf("dut2.g_pattern_step = %x\r\n\r\n",dut2.g_pattern_step);
-
-		pattern_safe_state_dut2();
-
 		break;
 	}
 	}

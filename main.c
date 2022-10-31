@@ -72,8 +72,8 @@ int main()
     //initialize the Gpios
     GpioIniti();
 
-    //initialize spi to Master
-    SpiInitiToMaster();
+//    //initialize spi to Master
+//    SpiInitiToMaster();
 
     //no used on RL6558/RL6628 LoadBoard
     //initialize as 7705
@@ -282,6 +282,19 @@ int main()
 	dut2.g_current_data_centre = 0;
 	dut3.g_current_data_centre = 0;
 
+	for(i=0; i<10; i++)
+	{
+		dut0.g_clock_detect_reg_data_buf[i] = 0;
+		dut1.g_clock_detect_reg_data_buf[i] = 0;
+		dut2.g_clock_detect_reg_data_buf[i] = 0;
+		dut3.g_clock_detect_reg_data_buf[i] = 0;
+	}
+
+	dut0.g_clock_detect_polling_tmrcount = 50;
+	dut1.g_clock_detect_polling_tmrcount = 50;
+	dut2.g_clock_detect_polling_tmrcount = 50;
+	dut3.g_clock_detect_polling_tmrcount = 50;
+
 	while(1)
 	{
 		//dut0.g_dut_pattern_status_buf[2] = (dut0.g_uartPatternNum & 0xff);
@@ -427,7 +440,7 @@ int main()
 				}
 				case 0x16:
 				{
-					//_by_Pattern_check_crc32_dut0();
+					_by_Pattern_clock_detect_test_dut0();
 					break;
 				}
 				case 0x18:
@@ -563,7 +576,7 @@ int main()
 				}
 				case 0x16:
 				{
-					//_by_Pattern_check_crc32_dut1();
+					_by_Pattern_clock_detect_test_dut1();
 					break;
 				}
 				case 0x18:
@@ -699,7 +712,7 @@ int main()
 				}
 				case 0x16:
 				{
-					//_by_Pattern_check_crc32_dut2();
+					_by_Pattern_clock_detect_test_dut2();
 					break;
 				}
 				case 0x18:
@@ -835,7 +848,7 @@ int main()
 				}
 				case 0x16:
 				{
-					//_by_Pattern_check_crc32_dut3();
+					_by_Pattern_clock_detect_test_dut3();
 					break;
 				}
 				case 0x18:
@@ -906,6 +919,7 @@ int main()
 			}
 		}
    }
+
    return 0;
 }
 
