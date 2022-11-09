@@ -7,7 +7,6 @@ u8 _by_Pattern_Softdelink_current_test_dut0()
 	u8 temp;
 	static u16 data_sum = 0;
 	u8 Buff_dut0_XGPIO_0[8];
-	u8 Loop_run_enable = 0;
 
 	switch(dut0.g_pattern_step)
 	{
@@ -40,7 +39,8 @@ u8 _by_Pattern_Softdelink_current_test_dut0()
 			{
 				dut0.g_dut_pattern_status_buf[7] = 0x00;
 				dut0.g_pattern_step++;
-				//msdelay(550);
+
+				g_clock_detect_status = 0x10;
 			}
 		}
 		//output fail result
@@ -229,8 +229,37 @@ u8 _by_Pattern_Softdelink_current_test_dut0()
 		break;
 	}
 
-	//read efuse
+	//read rc16m data
 	case 0x0004:
+	{
+		dut0.g_pattern_smbus_control_buf[1] = smbus_cmd_type_geticstatus;
+		dut0.g_pattern_smbus_control_buf[2] = 0x26;
+		dut0.g_pattern_smbus_control_buf[3] = 0x00;
+		dut0.g_pattern_smbus_control_buf[4] = 0x02;
+
+		smbus0_irq_handle(dut0.g_pattern_smbus_control_buf);
+		if(dut0.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
+		{
+			break;
+		}
+		else
+		{
+			dut0.g_rc16m_data = ((dut0.g_pattern_smbus_control_buf[11] << 8) | dut0.g_pattern_smbus_control_buf[10]);
+			xil_printf("dut0 clock 1M data: %d\r\n\r\n", dut0.g_rc16m_data);
+
+			for(i=1; i<60; i++)
+			{
+				dut0.g_pattern_smbus_control_buf[i] = CLEAR_;
+			}
+
+			dut0.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
+			dut0.g_pattern_step++;
+		}
+		break;
+	}
+
+	//read efuse
+	case 0x0005:
 	{
 		dut0.g_pattern_smbus_control_buf[1] = smbus_cmd_type_readefuse;
 		dut0.g_pattern_smbus_control_buf[2] = 0x00;
@@ -253,6 +282,34 @@ u8 _by_Pattern_Softdelink_current_test_dut0()
 			{
 				dut0.g_pattern_smbus_control_buf[i] = CLEAR_;
 			}
+
+			dut0.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
+			dut0.g_pattern_step++;
+		}
+		break;
+	}
+
+	//write pattern index
+	case 0x0006:
+	{
+		dut0.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
+		dut0.g_pattern_smbus_control_buf[2] = 0x33;
+		dut0.g_pattern_smbus_control_buf[3] = 0xdf;
+		dut0.g_pattern_smbus_control_buf[4] = 0x01;
+		dut0.g_pattern_smbus_control_buf[5] = 0x16;
+
+		smbus0_irq_handle(dut0.g_pattern_smbus_control_buf);
+		if(dut0.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
+		{
+			break;
+		}
+		else
+		{
+			xil_printf("\r\ndut0 write pattern index =%x\r\n", dut0.g_pattern_smbus_control_buf[5]);
+			for(i=1; i<60; i++)
+			{
+				dut0.g_pattern_smbus_control_buf[i] = CLEAR_;
+			}
 			dut0.g_pattern_timer = 0x3fff;
 			dut0.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
 			dut0.g_pattern_step = 0x00;
@@ -260,6 +317,9 @@ u8 _by_Pattern_Softdelink_current_test_dut0()
 			dut0.g_uartPatternEnable = 0x00;
 			dut0.g_uartPatternNum++;
 			result_output_for_v50(XPAR_AXI_GPIO_dut0_1_BASEADDR,dut0.g_uartPatternNum);
+			msdelay(5);
+
+			XGpio_WriteReg(XPAR_CLOCK_FREQ_DETECT_DUT0_BASEADDR, 4, 0x00000001);
 		}
 		break;
 	}

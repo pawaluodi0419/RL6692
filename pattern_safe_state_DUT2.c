@@ -5,8 +5,8 @@ void pattern_safe_state_dut2()
 	u8 i;
 	u8 Buff_dut2_XGPIO_0[8];
 	//relay control
-	Buff_dut2_XGPIO_0[0] = 0x00;                            //REG0005 ouput value[7:0]
-	Buff_dut2_XGPIO_0[1] = 0xFA;							//REG0006
+	Buff_dut2_XGPIO_0[0] = 0x04;                            //REG0005 ouput value[7:0]
+	Buff_dut2_XGPIO_0[1] = 0xF2;							//REG0006
 	Buff_dut2_XGPIO_0[2] = 0x40;							//REG0007 output value[15:8]
 	Buff_dut2_XGPIO_0[3] = 0x9E;							//REG0008
 	Buff_dut2_XGPIO_0[4] = 0x00|(dut2.g_uartPatternNum); 	//REG0009 output value[23:16]
@@ -57,7 +57,9 @@ void pattern_safe_state_dut2()
 	dut2.g_ft2_test_done = 0x00;
 	dut2.g_uartPatternEnable = 0x00;
 	dut2.g_dut_start_ready = 0;
-	g_timer_flag = 1;
+
+	XGpio_WriteReg(XPAR_CLOCK_FREQ_DETECT_DUT2_BASEADDR, 4, 0x00000000);
+	g_clock_detect_status = 0;
 }
 
 

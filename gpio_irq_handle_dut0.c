@@ -83,7 +83,7 @@ void XGPIO_dut0_1_Intrq_Handle()
 		}
 		else if(dut0.g_result_fail == 0x00)
 		{
-			dut0.g_dut_start_ready = 0x01;
+			dut0.g_dut_start_ready = 0x11;
 		}
 	}
 

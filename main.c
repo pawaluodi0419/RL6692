@@ -32,12 +32,12 @@ u8 g_ledD4Tg = 0;
 u8 g_ledD5Tg = 0;
 u8 g_ledD6Tg = 0;
 u8 g_ledD7Tg = 0;
-u8 g_timer_flag = 1;
 u8 g_u2_host_test1_flag = 0;
+u8 g_clock_detect_status = 0;
 
 int main()
 {
-	xil_printf("FT2 start!\r\nFPGA Version:RTS5456H_FT_Merge_Release_2022080301\r\n");
+	xil_printf("FT2 start!\r\nFPGA Version:RTS5456H_FT_Merge_add_clock_detect_2022110701\r\n");
 
 	XGpio_WriteBit(XPAR_AXI_GPIO_1_BASEADDR,0,1, 0);	//reset usb host
 	msdelay(100);
@@ -290,11 +290,6 @@ int main()
 		dut3.g_clock_detect_reg_data_buf[i] = 0;
 	}
 
-	dut0.g_clock_detect_polling_tmrcount = 50;
-	dut1.g_clock_detect_polling_tmrcount = 50;
-	dut2.g_clock_detect_polling_tmrcount = 50;
-	dut3.g_clock_detect_polling_tmrcount = 50;
-
 	while(1)
 	{
 		//dut0.g_dut_pattern_status_buf[2] = (dut0.g_uartPatternNum & 0xff);
@@ -326,128 +321,134 @@ int main()
 			}
 			else
 			{
-				switch(dut0.g_uartPatternNum)
+				if((g_clock_detect_status == 0x00) | (g_clock_detect_status == 0x10))
 				{
-				case 0x00:
-				{
-					_by_Pattern0_Setup_dut0();
-					break;
-				}
-				case 0x01:
-				{
-					_by_Pattern1_dut0();
-					break;
-				}
-				case 0x02:
-				{
-					_by_Pattern2_dut0();
-					break;
-				}
-				case 0x03:
-				{
-					_by_Pattern3_dut0();
-					break;
-				}
-				case 0x04:
-				{
-					_by_Pattern4_dut0();
-					break;
-				}
-				case 0x05:
-				{
-					_by_Pattern5_dut0();
-					break;
-				}
-				case 0x06:
-				{
-					_by_Pattern6_dut0();
-					break;
-				}
-				case 0x07:
-				{
-					_by_Pattern7_dut0();
-					break;
-				}
-				case 0x08:
-				{
-					//CC OVP
-					_by_Pattern8_dut0();
-					break;
-				}
-				case 0x09:
-				{
-					//SBU OVP
-					_by_Pattern9_dut0();
-					break;
-				}
-				case 0x0A:
-				{
-					//BMC RX
-					_by_PatternA_dut0();
-					break;
-				}
-				case 0x0B:
-				{
-					//VFRS
-					_by_PatternB_dut0();
-					break;
-				}
-				case 0x0C:
-				{
-					//_by_Pattern_U2_host_test1_dut0();
-					if(g_u2_host_test1_flag)
+					switch(dut0.g_uartPatternNum)
 					{
-						dut0.g_uartPatternNum++;
+					case 0x00:
+					{
+						_by_Pattern0_Setup_dut0();
+						break;
 					}
-					break;
-				}
-				case 0x0D:
-				{
-					//Normal CC detect
-					_by_PatternD_dut0();
-					break;
-				}
-				case 0x0E:
-				{
-					//Delink CC detect
-					_by_PatternE_dut0();
-					break;
-				}
-				case 0x0F:
-				{
-					_by_PatternF_efuse_dut0();
-					break;
-				}
-				case 0x10:
-				{
-					//_by_Pattern_U2_host_test1_dut0();
-					break;
-				}
-				case 0x11:
-				{
-					_by_Pattern_PD_msg_dut0();
-					break;
-				}
-				case 0x14:
-				{
-					_by_Pattern_U2_host_test2_dut0();
-					break;
-				}
-				case 0x15:
-				{
-					_by_Pattern_Softdelink_current_test_dut0();
-					break;
-				}
-				case 0x16:
-				{
-					_by_Pattern_clock_detect_test_dut0();
-					break;
-				}
-				case 0x18:
-				{
-					dut0.g_uartPatternNum = 0x00;
-					break;
-				}
+					case 0x01:
+					{
+						_by_Pattern1_dut0();
+						break;
+					}
+					case 0x02:
+					{
+						_by_Pattern2_dut0();
+						break;
+					}
+					case 0x03:
+					{
+						_by_Pattern3_dut0();
+						break;
+					}
+					case 0x04:
+					{
+						_by_Pattern4_dut0();
+						break;
+					}
+					case 0x05:
+					{
+						_by_Pattern5_dut0();
+						break;
+					}
+					case 0x06:
+					{
+						_by_Pattern6_dut0();
+						break;
+					}
+					case 0x07:
+					{
+						_by_Pattern7_dut0();
+						break;
+					}
+					case 0x08:
+					{
+						//CC OVP
+						_by_Pattern8_dut0();
+						break;
+					}
+					case 0x09:
+					{
+						//SBU OVP
+						_by_Pattern9_dut0();
+						break;
+					}
+					case 0x0A:
+					{
+						//BMC RX
+						_by_PatternA_dut0();
+						break;
+					}
+					case 0x0B:
+					{
+						//VFRS
+						_by_PatternB_dut0();
+						break;
+					}
+					case 0x0C:
+					{
+						//_by_Pattern_U2_host_test1_dut0();
+						if(g_u2_host_test1_flag)
+						{
+							dut0.g_uartPatternNum++;
+						}
+						break;
+					}
+					case 0x0D:
+					{
+						//Normal CC detect
+						_by_PatternD_dut0();
+						break;
+					}
+					case 0x0E:
+					{
+						//Delink CC detect
+						_by_PatternE_dut0();
+						break;
+					}
+					case 0x0F:
+					{
+						_by_PatternF_efuse_dut0();
+						break;
+					}
+					case 0x10:
+					{
+						//_by_Pattern_U2_host_test1_dut0();
+						break;
+					}
+					case 0x11:
+					{
+						_by_Pattern_PD_msg_dut0();
+						break;
+					}
+					case 0x14:
+					{
+						_by_Pattern_U2_host_test2_dut0();
+						break;
+					}
+					case 0x15:
+					{
+						_by_Pattern_Softdelink_current_test_dut0();
+						break;
+					}
+					case 0x16:
+					{
+						if((XGpio_ReadReg(XPAR_CLOCK_FREQ_DETECT_DUT0_BASEADDR, 4) >> 1))
+						{
+							_by_Pattern_clock_detect_test_dut0();
+						}
+						break;
+					}
+					case 0x18:
+					{
+						dut0.g_uartPatternNum = 0x00;
+						break;
+					}
+					}
 				}
 			}
 		}
@@ -462,128 +463,134 @@ int main()
 			}
 			else
 			{
-				switch(dut1.g_uartPatternNum)
+				if((g_clock_detect_status == 0x00) | (g_clock_detect_status == 0x11))
 				{
-				case 0x00:
-				{
-					_by_Pattern0_Setup_dut1();
-					break;
-				}
-				case 0x01:
-				{
-					_by_Pattern1_dut1();
-					break;
-				}
-				case 0x02:
-				{
-					_by_Pattern2_dut1();
-					break;
-				}
-				case 0x03:
-				{
-					_by_Pattern3_dut1();
-					break;
-				}
-				case 0x04:
-				{
-					_by_Pattern4_dut1();
-					break;
-				}
-				case 0x05:
-				{
-					_by_Pattern5_dut1();
-					break;
-				}
-				case 0x06:
-				{
-					_by_Pattern6_dut1();
-					break;
-				}
-				case 0x07:
-				{
-					_by_Pattern7_dut1();
-					break;
-				}
-				case 0x08:
-				{
-					//CC OVP
-					_by_Pattern8_dut1();
-					break;
-				}
-				case 0x09:
-				{
-					//SBU OVP
-					_by_Pattern9_dut1();
-					break;
-				}
-				case 0x0A:
-				{
-					//BMC RX
-					_by_PatternA_dut1();
-					break;
-				}
-				case 0x0B:
-				{
-					//VFRS
-					_by_PatternB_dut1();
-					break;
-				}
-				case 0x0C:
-				{
-					//_by_Pattern_U2_host_test1_dut1();
-					if(g_u2_host_test1_flag)
+					switch(dut1.g_uartPatternNum)
 					{
-						dut1.g_uartPatternNum++;
+					case 0x00:
+					{
+						_by_Pattern0_Setup_dut1();
+						break;
 					}
-					break;
-				}
-				case 0x0D:
-				{
-					//Normal CC detect
-					_by_PatternD_dut1();
-					break;
-				}
-				case 0x0E:
-				{
-					//Delink CC detect
-					_by_PatternE_dut1();
-					break;
-				}
-				case 0x0F:
-				{
-					_by_PatternF_efuse_dut1();
-					break;
-				}
-				case 0x10:
-				{
-					//_by_Pattern_U2_host_test1_dut1();
-					break;
-				}
-				case 0x11:
-				{
-					_by_Pattern_PD_msg_dut1();
-					break;
-				}
-				case 0x14:
-				{
-					_by_Pattern_U2_host_test2_dut1();
-					break;
-				}
-				case 0x15:
-				{
-					_by_Pattern_Softdelink_current_test_dut1();
-					break;
-				}
-				case 0x16:
-				{
-					_by_Pattern_clock_detect_test_dut1();
-					break;
-				}
-				case 0x18:
-				{
-					dut1.g_uartPatternNum = 0x00;
-					break;
-				}
+					case 0x01:
+					{
+						_by_Pattern1_dut1();
+						break;
+					}
+					case 0x02:
+					{
+						_by_Pattern2_dut1();
+						break;
+					}
+					case 0x03:
+					{
+						_by_Pattern3_dut1();
+						break;
+					}
+					case 0x04:
+					{
+						_by_Pattern4_dut1();
+						break;
+					}
+					case 0x05:
+					{
+						_by_Pattern5_dut1();
+						break;
+					}
+					case 0x06:
+					{
+						_by_Pattern6_dut1();
+						break;
+					}
+					case 0x07:
+					{
+						_by_Pattern7_dut1();
+						break;
+					}
+					case 0x08:
+					{
+						//CC OVP
+						_by_Pattern8_dut1();
+						break;
+					}
+					case 0x09:
+					{
+						//SBU OVP
+						_by_Pattern9_dut1();
+						break;
+					}
+					case 0x0A:
+					{
+						//BMC RX
+						_by_PatternA_dut1();
+						break;
+					}
+					case 0x0B:
+					{
+						//VFRS
+						_by_PatternB_dut1();
+						break;
+					}
+					case 0x0C:
+					{
+						//_by_Pattern_U2_host_test1_dut1();
+						if(g_u2_host_test1_flag)
+						{
+							dut1.g_uartPatternNum++;
+						}
+						break;
+					}
+					case 0x0D:
+					{
+						//Normal CC detect
+						_by_PatternD_dut1();
+						break;
+					}
+					case 0x0E:
+					{
+						//Delink CC detect
+						_by_PatternE_dut1();
+						break;
+					}
+					case 0x0F:
+					{
+						_by_PatternF_efuse_dut1();
+						break;
+					}
+					case 0x10:
+					{
+						//_by_Pattern_U2_host_test1_dut1();
+						break;
+					}
+					case 0x11:
+					{
+						_by_Pattern_PD_msg_dut1();
+						break;
+					}
+					case 0x14:
+					{
+						_by_Pattern_U2_host_test2_dut1();
+						break;
+					}
+					case 0x15:
+					{
+						_by_Pattern_Softdelink_current_test_dut1();
+						break;
+					}
+					case 0x16:
+					{
+						if((XGpio_ReadReg(XPAR_CLOCK_FREQ_DETECT_DUT1_BASEADDR, 4) >> 1))
+						{
+							_by_Pattern_clock_detect_test_dut1();
+						}
+						break;
+					}
+					case 0x18:
+					{
+						dut1.g_uartPatternNum = 0x00;
+						break;
+					}
+					}
 				}
 			}
 		}
@@ -598,128 +605,134 @@ int main()
 			}
 			else
 			{
-				switch(dut2.g_uartPatternNum)
+				if((g_clock_detect_status == 0x00) | (g_clock_detect_status == 0x12))
 				{
-				case 0x00:
-				{
-					_by_Pattern0_Setup_dut2();
-					break;
-				}
-				case 0x01:
-				{
-					_by_Pattern1_dut2();
-					break;
-				}
-				case 0x02:
-				{
-					_by_Pattern2_dut2();
-					break;
-				}
-				case 0x03:
-				{
-					_by_Pattern3_dut2();
-					break;
-				}
-				case 0x04:
-				{
-					_by_Pattern4_dut2();
-					break;
-				}
-				case 0x05:
-				{
-					_by_Pattern5_dut2();
-					break;
-				}
-				case 0x06:
-				{
-					_by_Pattern6_dut2();
-					break;
-				}
-				case 0x07:
-				{
-					_by_Pattern7_dut2();
-					break;
-				}
-				case 0x08:
-				{
-					//CC OVP
-					_by_Pattern8_dut2();
-					break;
-				}
-				case 0x09:
-				{
-					//SBU OVP
-					_by_Pattern9_dut2();
-					break;
-				}
-				case 0x0A:
-				{
-					//BMC RX
-					_by_PatternA_dut2();
-					break;
-				}
-				case 0x0B:
-				{
-					//VFRS
-					_by_PatternB_dut2();
-					break;
-				}
-				case 0x0C:
-				{
-					//_by_Pattern_U2_host_test1_dut2();
-					if(g_u2_host_test1_flag)
+					switch(dut2.g_uartPatternNum)
 					{
-						dut2.g_uartPatternNum++;
+					case 0x00:
+					{
+						_by_Pattern0_Setup_dut2();
+						break;
 					}
-					break;
-				}
-				case 0x0D:
-				{
-					//Normal CC detect
-					_by_PatternD_dut2();
-					break;
-				}
-				case 0x0E:
-				{
-					//Delink CC detect
-					_by_PatternE_dut2();
-					break;
-				}
-				case 0x0F:
-				{
-					_by_PatternF_efuse_dut2();
-					break;
-				}
-				case 0x10:
-				{
-					//_by_Pattern_U2_host_test1_dut2();
-					break;
-				}
-				case 0x11:
-				{
-					_by_Pattern_PD_msg_dut2();
-					break;
-				}
-				case 0x14:
-				{
-					_by_Pattern_U2_host_test2_dut2();
-					break;
-				}
-				case 0x15:
-				{
-					_by_Pattern_Softdelink_current_test_dut2();
-					break;
-				}
-				case 0x16:
-				{
-					_by_Pattern_clock_detect_test_dut2();
-					break;
-				}
-				case 0x18:
-				{
-					dut2.g_uartPatternNum = 0x00;
-					break;
-				}
+					case 0x01:
+					{
+						_by_Pattern1_dut2();
+						break;
+					}
+					case 0x02:
+					{
+						_by_Pattern2_dut2();
+						break;
+					}
+					case 0x03:
+					{
+						_by_Pattern3_dut2();
+						break;
+					}
+					case 0x04:
+					{
+						_by_Pattern4_dut2();
+						break;
+					}
+					case 0x05:
+					{
+						_by_Pattern5_dut2();
+						break;
+					}
+					case 0x06:
+					{
+						_by_Pattern6_dut2();
+						break;
+					}
+					case 0x07:
+					{
+						_by_Pattern7_dut2();
+						break;
+					}
+					case 0x08:
+					{
+						//CC OVP
+						_by_Pattern8_dut2();
+						break;
+					}
+					case 0x09:
+					{
+						//SBU OVP
+						_by_Pattern9_dut2();
+						break;
+					}
+					case 0x0A:
+					{
+						//BMC RX
+						_by_PatternA_dut2();
+						break;
+					}
+					case 0x0B:
+					{
+						//VFRS
+						_by_PatternB_dut2();
+						break;
+					}
+					case 0x0C:
+					{
+						//_by_Pattern_U2_host_test1_dut2();
+						if(g_u2_host_test1_flag)
+						{
+							dut2.g_uartPatternNum++;
+						}
+						break;
+					}
+					case 0x0D:
+					{
+						//Normal CC detect
+						_by_PatternD_dut2();
+						break;
+					}
+					case 0x0E:
+					{
+						//Delink CC detect
+						_by_PatternE_dut2();
+						break;
+					}
+					case 0x0F:
+					{
+						_by_PatternF_efuse_dut2();
+						break;
+					}
+					case 0x10:
+					{
+						//_by_Pattern_U2_host_test1_dut2();
+						break;
+					}
+					case 0x11:
+					{
+						_by_Pattern_PD_msg_dut2();
+						break;
+					}
+					case 0x14:
+					{
+						_by_Pattern_U2_host_test2_dut2();
+						break;
+					}
+					case 0x15:
+					{
+						_by_Pattern_Softdelink_current_test_dut2();
+						break;
+					}
+					case 0x16:
+					{
+						if((XGpio_ReadReg(XPAR_CLOCK_FREQ_DETECT_DUT2_BASEADDR, 4) >> 1))
+						{
+							_by_Pattern_clock_detect_test_dut2();
+						}
+						break;
+					}
+					case 0x18:
+					{
+						dut2.g_uartPatternNum = 0x00;
+						break;
+					}
+					}
 				}
 			}
 		}
@@ -734,128 +747,134 @@ int main()
 			}
 			else
 			{
-				switch(dut3.g_uartPatternNum)
+				if((g_clock_detect_status == 0x00) | (g_clock_detect_status == 0x13))
 				{
-				case 0x00:
-				{
-					_by_Pattern0_Setup_dut3();
-					break;
-				}
-				case 0x01:
-				{
-					_by_Pattern1_dut3();
-					break;
-				}
-				case 0x02:
-				{
-					_by_Pattern2_dut3();
-					break;
-				}
-				case 0x03:
-				{
-					_by_Pattern3_dut3();
-					break;
-				}
-				case 0x04:
-				{
-					_by_Pattern4_dut3();
-					break;
-				}
-				case 0x05:
-				{
-					_by_Pattern5_dut3();
-					break;
-				}
-				case 0x06:
-				{
-					_by_Pattern6_dut3();
-					break;
-				}
-				case 0x07:
-				{
-					_by_Pattern7_dut3();
-					break;
-				}
-				case 0x08:
-				{
-					//CC OVP
-					_by_Pattern8_dut3();
-					break;
-				}
-				case 0x09:
-				{
-					//SBU OVP
-					_by_Pattern9_dut3();
-					break;
-				}
-				case 0x0A:
-				{
-					//BMC RX
-					_by_PatternA_dut3();
-					break;
-				}
-				case 0x0B:
-				{
-					//VFRS
-					_by_PatternB_dut3();
-					break;
-				}
-				case 0x0C:
-				{
-					//_by_Pattern_U2_host_test1_dut3();
-					if(g_u2_host_test1_flag)
+					switch(dut3.g_uartPatternNum)
 					{
-						dut3.g_uartPatternNum++;
+					case 0x00:
+					{
+						_by_Pattern0_Setup_dut3();
+						break;
 					}
-					break;
-				}
-				case 0x0D:
-				{
-					//Normal CC detect
-					_by_PatternD_dut3();
-					break;
-				}
-				case 0x0E:
-				{
-					//Delink CC detect
-					_by_PatternE_dut3();
-					break;
-				}
-				case 0x0F:
-				{
-					_by_PatternF_efuse_dut3();
-					break;
-				}
-				case 0x10:
-				{
-					//_by_Pattern_U2_host_test1_dut3();
-					break;
-				}
-				case 0x11:
-				{
-					_by_Pattern_PD_msg_dut3();
-					break;
-				}
-				case 0x14:
-				{
-					_by_Pattern_U2_host_test2_dut3();
-					break;
-				}
-				case 0x15:
-				{
-					_by_Pattern_Softdelink_current_test_dut3();
-					break;
-				}
-				case 0x16:
-				{
-					_by_Pattern_clock_detect_test_dut3();
-					break;
-				}
-				case 0x18:
-				{
-					dut3.g_uartPatternNum = 0x00;
-					break;
-				}
+					case 0x01:
+					{
+						_by_Pattern1_dut3();
+						break;
+					}
+					case 0x02:
+					{
+						_by_Pattern2_dut3();
+						break;
+					}
+					case 0x03:
+					{
+						_by_Pattern3_dut3();
+						break;
+					}
+					case 0x04:
+					{
+						_by_Pattern4_dut3();
+						break;
+					}
+					case 0x05:
+					{
+						_by_Pattern5_dut3();
+						break;
+					}
+					case 0x06:
+					{
+						_by_Pattern6_dut3();
+						break;
+					}
+					case 0x07:
+					{
+						_by_Pattern7_dut3();
+						break;
+					}
+					case 0x08:
+					{
+						//CC OVP
+						_by_Pattern8_dut3();
+						break;
+					}
+					case 0x09:
+					{
+						//SBU OVP
+						_by_Pattern9_dut3();
+						break;
+					}
+					case 0x0A:
+					{
+						//BMC RX
+						_by_PatternA_dut3();
+						break;
+					}
+					case 0x0B:
+					{
+						//VFRS
+						_by_PatternB_dut3();
+						break;
+					}
+					case 0x0C:
+					{
+						//_by_Pattern_U2_host_test1_dut3();
+						if(g_u2_host_test1_flag)
+						{
+							dut3.g_uartPatternNum++;
+						}
+						break;
+					}
+					case 0x0D:
+					{
+						//Normal CC detect
+						_by_PatternD_dut3();
+						break;
+					}
+					case 0x0E:
+					{
+						//Delink CC detect
+						_by_PatternE_dut3();
+						break;
+					}
+					case 0x0F:
+					{
+						_by_PatternF_efuse_dut3();
+						break;
+					}
+					case 0x10:
+					{
+						//_by_Pattern_U2_host_test1_dut3();
+						break;
+					}
+					case 0x11:
+					{
+						_by_Pattern_PD_msg_dut3();
+						break;
+					}
+					case 0x14:
+					{
+						_by_Pattern_U2_host_test2_dut3();
+						break;
+					}
+					case 0x15:
+					{
+						_by_Pattern_Softdelink_current_test_dut3();
+						break;
+					}
+					case 0x16:
+					{
+						if((XGpio_ReadReg(XPAR_CLOCK_FREQ_DETECT_DUT3_BASEADDR, 4) >> 1))
+						{
+							_by_Pattern_clock_detect_test_dut3();
+						}
+						break;
+					}
+					case 0x18:
+					{
+						dut3.g_uartPatternNum = 0x00;
+						break;
+					}
+					}
 				}
 			}
 		}
@@ -906,17 +925,19 @@ int main()
 			msdelay(2000);
 			//xil_printf("without start signal or ft2 test done, send uart data 0x03!\r\n\r\n");
 
-			if(g_timer_flag)
-			{
-				if((dut0.g_uartPatternNum == 0x17) || (dut1.g_uartPatternNum == 0x17) || (dut2.g_uartPatternNum == 0x17) || (dut3.g_uartPatternNum == 0x17))
-				{
-//					xil_printf("dut0.g_axiTmr0Cnt = %d\r\n", dut0.g_axiTmr0Cnt);
-					xil_printf("FT2 test time: %d.%02d s\r\n\r\n", dut0.g_axiTmr0Cnt / 100, dut0.g_axiTmr0Cnt % 100);
+			g_clock_detect_status = 0;
 
-					g_timer_flag = 0;
-					dut0.g_axiTmr0Cnt = 0;
-				}
-			}
+//			if(g_timer_flag)
+//			{
+//				if((dut0.g_uartPatternNum == 0x17) || (dut1.g_uartPatternNum == 0x17) || (dut2.g_uartPatternNum == 0x17) || (dut3.g_uartPatternNum == 0x17))
+//				{
+//					xil_printf("dut0.g_axiTmr0Cnt = %d\r\n", dut0.g_axiTmr0Cnt);
+//					xil_printf("FT2 test time: %d.%02d s\r\n\r\n", dut0.g_axiTmr0Cnt / 100, dut0.g_axiTmr0Cnt % 100);
+//
+//					g_timer_flag = 0;
+//					dut0.g_axiTmr0Cnt = 0;
+//				}
+//			}
 		}
    }
 

@@ -207,7 +207,7 @@ u8 	g_current_data_buf[20];
 u8 	g_current_data_centre;
 
 u32 g_clock_detect_reg_data_buf[10];
-u8  g_clock_detect_polling_tmrcount;
+u16 g_rc16m_data;
 };
 
 extern u8 g_opaLedTg;
@@ -218,8 +218,8 @@ extern u8 g_ledD5Tg;
 extern u8 g_ledD6Tg;
 extern u8 g_ledD7Tg;
 
-extern u8 g_timer_flag;
 extern u8 g_u2_host_test1_flag;
+extern u8 g_clock_detect_status;;
 
 extern struct DUT dut0;
 extern struct DUT dut1;

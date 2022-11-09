@@ -4,8 +4,8 @@ void pattern_initial_state_dut0()
 {
 	u8 Buff_dut0_XGPIO_0[8];
 	//relay control
-	Buff_dut0_XGPIO_0[0] = 0x00;                            //REG0005 ouput value[7:0]
-	Buff_dut0_XGPIO_0[1] = 0xFF;							//REG0006
+	Buff_dut0_XGPIO_0[0] = 0x04;                            //REG0005 ouput value[7:0]
+	Buff_dut0_XGPIO_0[1] = 0xF2;							//REG0006
 	Buff_dut0_XGPIO_0[2] = 0x40;							//REG0007 output value[15:8]
 	Buff_dut0_XGPIO_0[3] = 0x9E;							//REG0008
 	Buff_dut0_XGPIO_0[4] = 0x00|(dut0.g_uartPatternNum); 	//REG0009 output value[23:16]
