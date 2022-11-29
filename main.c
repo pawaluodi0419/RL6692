@@ -37,7 +37,7 @@ u8 g_clock_detect_status = 0;
 
 int main()
 {
-	xil_printf("FT2 start!\r\nFPGA Version:RTS5456H_FT_Merge_add_clock_detect_2022110701\r\n");
+	xil_printf("FT2 start!\r\nFPGA Version:RTS5456H_FT_Merge_add_clock_detect_2022111701\r\n");
 
 	XGpio_WriteBit(XPAR_AXI_GPIO_1_BASEADDR,0,1, 0);	//reset usb host
 	msdelay(100);

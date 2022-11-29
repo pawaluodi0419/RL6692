@@ -69,6 +69,21 @@ u8 _by_Pattern_clock_detect_test_dut0()
 		xil_printf("dut0 clock_period =%d\r\n\r\n", clock_data_average * 20);
 		xil_printf("dut0 1M/100K: %d.%02d\r\n", (dut0.g_rc16m_data * clock_data_average / 800) / 100, (dut0.g_rc16m_data * clock_data_average / 800) % 100);
 
+		if((dut0.g_rc16m_data * clock_data_average / 800) < 1150)
+		{
+			xil_printf("dut0 1M/100K < 11.5!\r\n\r\n");
+			dut0.g_pattern_step++;
+		}
+		else
+		{
+			xil_printf("dut0 1M/100K > 11.5!\r\n\r\n");
+			dut0.g_result_fail = 0x01;
+		}
+		break;
+	}
+
+	case 0x0001:
+	{
 		XGpio_WriteReg(XPAR_CLOCK_FREQ_DETECT_DUT0_BASEADDR, 4, 0x00000000);
 		g_clock_detect_status = 0;
 
