@@ -7,13 +7,11 @@ u8 _by_PatternA_dut3()
 
 	switch(dut3.g_pattern_step)
 	{
-	//CC1/CC2切换到CC1_TRH/CC2_TRH: XGPIO0设定输出low, XGPIO2设定输出low
-	//aux mux test: XGPIO21设定输出low
 	case 0x0000:
 	{
 		if(dut3.g_dut_pattern_status_buf[7] == 0x00)
 		{
-			Buff_dut3_XGPIO_0[0] = 0x30;                            //REG0005 ouput value[7:0]
+			Buff_dut3_XGPIO_0[0] = 0x34;                            //REG0005 ouput value[7:0]
 			Buff_dut3_XGPIO_0[1] = 0xC2;							//REG0006
 			Buff_dut3_XGPIO_0[2] = 0x40;							//REG0007 output value[15:8]
 			Buff_dut3_XGPIO_0[3] = 0x9E;							//REG0008
@@ -33,7 +31,6 @@ u8 _by_PatternA_dut3()
 			{
 				dut3.g_dut_pattern_status_buf[7] = 0x00;
 				dut3.g_pattern_step++;
-				dut3.g_pattern_step++;
 			}
 		}
 		//output fail result
@@ -45,35 +42,8 @@ u8 _by_PatternA_dut3()
 		break;
 	}
 
-//	//DP reverse: RL6692 need to write 0x35, not 0x34
-//	case 0x0001:
-//	{
-//		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
-//		dut3.g_pattern_smbus_control_buf[2] = 0x15;
-//		dut3.g_pattern_smbus_control_buf[3] = 0xc4;
-//		dut3.g_pattern_smbus_control_buf[4] = 0x01;
-//		dut3.g_pattern_smbus_control_buf[5] = 0x35;
-//
-//		smbus3_irq_handle(dut3.g_pattern_smbus_control_buf);
-//		if(dut3.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
-//		{
-//			break;
-//		}
-//		else
-//		{
-//			for(i=1; i<60; i++)
-//			{
-//				dut3.g_pattern_smbus_control_buf[i] = CLEAR_;
-//			}
-//
-//			dut3.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
-//			dut3.g_pattern_step++;
-//		}
-//		break;
-//	}
-
 	//write pattern index
-	case 0x0002:
+	case 0x0001:
 	{
 		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
 		dut3.g_pattern_smbus_control_buf[2] = 0x33;
@@ -102,7 +72,7 @@ u8 _by_PatternA_dut3()
 	}
 
 	//polling ack bit
-	case 0x0003:
+	case 0x0002:
 	{
 		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_readmem;
 		dut3.g_pattern_smbus_control_buf[2] = 0x33;

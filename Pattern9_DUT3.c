@@ -7,7 +7,8 @@ u8 _by_Pattern9_dut3()
 
 	switch(dut3.g_pattern_step)
 	{
-	//SBU OVP test: XGPIO21设定输出high
+	//CC1/CC2切换到CC1_TRH/CC2_TRH: XGPIO0设定输出low, XGPIO2设定输出low
+	//aux mux test: XGPIO21设定输出low
 	case 0x0000:
 	{
 		if(dut3.g_dut_pattern_status_buf[7] == 0x00)
@@ -16,7 +17,7 @@ u8 _by_Pattern9_dut3()
 			Buff_dut3_XGPIO_0[1] = 0xC2;							//REG0006
 			Buff_dut3_XGPIO_0[2] = 0x40;							//REG0007 output value[15:8]
 			Buff_dut3_XGPIO_0[3] = 0x9E;							//REG0008
-			Buff_dut3_XGPIO_0[4] = 0xE0|(dut3.g_uartPatternNum); 	//REG0009 output value[23:16]
+			Buff_dut3_XGPIO_0[4] = 0xC0|(dut3.g_uartPatternNum); 	//REG0009 output value[23:16]
 			Buff_dut3_XGPIO_0[5] = 0x00;							//REG000a
 			Buff_dut3_XGPIO_0[6] = 0x02;							//REG000b output value[31:24]
 			Buff_dut3_XGPIO_0[7] = 0xFC;							//REG000c
@@ -32,6 +33,7 @@ u8 _by_Pattern9_dut3()
 			{
 				dut3.g_dut_pattern_status_buf[7] = 0x00;
 				dut3.g_pattern_step++;
+				dut3.g_pattern_step++;
 			}
 		}
 		//output fail result
@@ -43,8 +45,35 @@ u8 _by_Pattern9_dut3()
 		break;
 	}
 
+//	//DP reverse: RL6692 need to write 0x35, not 0x34
+//	case 0x0001:
+//	{
+//		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
+//		dut3.g_pattern_smbus_control_buf[2] = 0x15;
+//		dut3.g_pattern_smbus_control_buf[3] = 0xc4;
+//		dut3.g_pattern_smbus_control_buf[4] = 0x01;
+//		dut3.g_pattern_smbus_control_buf[5] = 0x35;
+//
+//		smbus3_irq_handle(dut3.g_pattern_smbus_control_buf);
+//		if(dut3.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
+//		{
+//			break;
+//		}
+//		else
+//		{
+//			for(i=1; i<60; i++)
+//			{
+//				dut3.g_pattern_smbus_control_buf[i] = CLEAR_;
+//			}
+//
+//			dut3.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
+//			dut3.g_pattern_step++;
+//		}
+//		break;
+//	}
+
 	//write pattern index
-	case 0x0001:
+	case 0x0002:
 	{
 		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_writemem;
 		dut3.g_pattern_smbus_control_buf[2] = 0x33;
@@ -73,7 +102,7 @@ u8 _by_Pattern9_dut3()
 	}
 
 	//polling ack bit
-	case 0x0002:
+	case 0x0003:
 	{
 		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_readmem;
 		dut3.g_pattern_smbus_control_buf[2] = 0x33;
@@ -95,47 +124,20 @@ u8 _by_Pattern9_dut3()
 					dut3.g_pattern_smbus_control_buf[i] = CLEAR_;
 				}
 
+				dut3.g_pattern_timer = 0x3fff;
 				dut3.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
-				dut3.g_pattern_step++;
+				dut3.g_pattern_step = 0x00;
+				//dut3.g_dut_pattern_status_buf[2]++;
+				dut3.g_uartPatternEnable = 0x00;
+				dut3.g_uartPatternNum++;
+				result_output_for_v50(XPAR_AXI_GPIO_dut3_1_BASEADDR,dut3.g_uartPatternNum);
+				xil_printf("dut3.pattern9_pass!\r\n\r\n");
 			}
 			else
 			{
 				dut3.g_result_fail = 0x01;
 				dut3.g_result_fail_tmrcount = 0xffff;
 			}
-		}
-		break;
-	}
-
-	case 0x0003:
-	{
-		dut3.g_pattern_smbus_control_buf[1] = smbus_cmd_type_readphy;
-		dut3.g_pattern_smbus_control_buf[2] = 0x04;
-		dut3.g_pattern_smbus_control_buf[3] = 0x01;
-		dut3.g_pattern_smbus_control_buf[4] = 0x01;
-
-		smbus3_irq_handle(dut3.g_pattern_smbus_control_buf);
-		if(dut3.g_pattern_smbus_control_buf[0] != smbus_road_done_pass)
-		{
-			break;
-		}
-		else
-		{
-			xil_printf("dut3 REG_TRIM_SBU_OVP =%x\r\n", (dut3.g_pattern_smbus_control_buf[11]>> 4) & 0x0f);
-
-			for(i=1; i<60; i++)
-			{
-				dut3.g_pattern_smbus_control_buf[i] = CLEAR_;
-			}
-
-			dut3.g_pattern_timer = 0x3fff;
-			dut3.g_pattern_smbus_control_buf[0] = smbus_road_waiting;
-			dut3.g_pattern_step = 0x00;
-			//dut3.g_dut_pattern_status_buf[2]++;
-			dut3.g_uartPatternEnable = 0x00;
-			dut3.g_uartPatternNum++;
-			result_output_for_v50(XPAR_AXI_GPIO_dut3_1_BASEADDR,dut3.g_uartPatternNum);
-			xil_printf("dut3.pattern9_pass!\r\n\r\n");
 		}
 		break;
 	}

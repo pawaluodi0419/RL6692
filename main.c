@@ -37,7 +37,7 @@ u8 g_clock_detect_status = 0;
 
 int main()
 {
-	xil_printf("FT2 start!\r\nFPGA Version:RTS5456H_FT_Merge_add_clock_detect_2022111701\r\n");
+	xil_printf("FT2 start!\r\nFPGA Version:RTS5456H_FT_Merge_add_clock_detect_2023031401\r\n");
 
 	XGpio_WriteBit(XPAR_AXI_GPIO_1_BASEADDR,0,1, 0);	//reset usb host
 	msdelay(100);
@@ -367,19 +367,19 @@ int main()
 					}
 					case 0x08:
 					{
-						//CC OVP
+						//OVP
 						_by_Pattern8_dut0();
 						break;
 					}
 					case 0x09:
 					{
-						//SBU OVP
+						//BMC RX
 						_by_Pattern9_dut0();
 						break;
 					}
 					case 0x0A:
 					{
-						//BMC RX
+						//BMC SLB
 						_by_PatternA_dut0();
 						break;
 					}
@@ -509,19 +509,19 @@ int main()
 					}
 					case 0x08:
 					{
-						//CC OVP
+						//OVP
 						_by_Pattern8_dut1();
 						break;
 					}
 					case 0x09:
 					{
-						//SBU OVP
+						//BMC RX
 						_by_Pattern9_dut1();
 						break;
 					}
 					case 0x0A:
 					{
-						//BMC RX
+						//BMC SLB
 						_by_PatternA_dut1();
 						break;
 					}
@@ -651,19 +651,19 @@ int main()
 					}
 					case 0x08:
 					{
-						//CC OVP
+						//OVP
 						_by_Pattern8_dut2();
 						break;
 					}
 					case 0x09:
 					{
-						//SBU OVP
+						//BMC RX
 						_by_Pattern9_dut2();
 						break;
 					}
 					case 0x0A:
 					{
-						//BMC RX
+						//BMC SLB
 						_by_PatternA_dut2();
 						break;
 					}
@@ -793,19 +793,19 @@ int main()
 					}
 					case 0x08:
 					{
-						//CC OVP
+						//OVP
 						_by_Pattern8_dut3();
 						break;
 					}
 					case 0x09:
 					{
-						//SBU OVP
+						//BMC RX
 						_by_Pattern9_dut3();
 						break;
 					}
 					case 0x0A:
 					{
-						//BMC RX
+						//BMC SLB
 						_by_PatternA_dut3();
 						break;
 					}
