@@ -31,7 +31,6 @@ u8 _by_PatternB_dut2()
 			{
 				dut2.g_dut_pattern_status_buf[7] = 0x00;
 				dut2.g_pattern_step++;
-				dut2.g_pattern_step++;
 			}
 		}
 		//output fail result
